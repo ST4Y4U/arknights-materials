@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>명일방주 재료 계산기</title>
   <style>
-    body { display: flex; flex-direction: column; font-family: sans-serif; margin:0; }
+    body { display:flex; flex-direction:column; font-family:sans-serif; margin:0; }
     header { background:#111; color:#fff; padding:10px; text-align:center; }
     main { display:flex; flex:1; }
     #gallery { flex:1; padding:10px; display:grid; grid-template-columns:repeat(auto-fill,150px); gap:10px; }
@@ -17,7 +17,10 @@
   </style>
 </head>
 <body>
-<header><h1>명일방주 캐릭터 재료 계산기</h1></header>
+<header>
+  <h1>명일방주 캐릭터 재료 계산기</h1>
+  <label><input type="checkbox" id="expandToggle"> 하위 재료 포함</label>
+</header>
 <main>
   <div id="gallery"></div>
   <div id="details"><em>캐릭터를 선택하세요</em></div>
@@ -32,18 +35,29 @@
 
 <script>
 let data = [];
+let materials = {};
 let owned = JSON.parse(localStorage.getItem("owned")||"{}");
 let selected = [];
+let expand = false;
 
 // JSON 불러오기
-fetch("data.json")
-  .then(res=>res.json())
-  .then(json=>{
-    data=json;
-    renderGallery();
-    renderBasket();
-  });
+Promise.all([
+  fetch("data.json").then(r=>r.json()),
+  fetch("materials.json").then(r=>r.json())
+]).then(([d,m])=>{
+  data=d;
+  materials=m;
+  renderGallery();
+  renderBasket();
+});
 
+// 토글 버튼 이벤트
+document.getElementById("expandToggle").addEventListener("change", e=>{
+  expand = e.target.checked;
+  renderBasket();
+});
+
+// 카드 갤러리
 function renderGallery(){
   const g=document.getElementById("gallery");
   g.innerHTML="";
@@ -56,6 +70,7 @@ function renderGallery(){
   });
 }
 
+// 캐릭터 선택/해제
 function toggleSelect(i){
   const idx=selected.indexOf(i);
   if(idx==-1) selected.push(i); else selected.splice(idx,1);
@@ -63,6 +78,7 @@ function toggleSelect(i){
   renderBasket();
 }
 
+// 캐릭터 상세
 function renderDetails(i){
   const d=document.getElementById("details");
   if(selected.indexOf(i)==-1){ d.innerHTML="<em>캐릭터를 선택하세요</em>"; return; }
@@ -71,12 +87,26 @@ function renderDetails(i){
   for(const [stage,mats] of Object.entries(ch.stages)){
     html+=`<h3>${stage}</h3><ul>`;
     mats.forEach(m=>{
-      html+=`<li><img src="${m.icon}"> ${m.name} x${m.count}</li>`;
+      html+=`<li>${m.name} x${m.count}</li>`;
     });
     html+="</ul>";
   }
   html+=`<button onclick="toggleSelect(${i})">선택 해제</button>`;
   d.innerHTML=html;
+}
+
+// 합계 계산 (재귀 포함)
+function expandMaterial(mat,count){
+  if(!expand) return {[mat]:count};
+  if(!materials[mat] || materials[mat].craft.length===0) return {[mat]:count};
+  let sum={};
+  materials[mat].craft.forEach(c=>{
+    const sub=expandMaterial(c.name, c.count*count);
+    for(const [k,v] of Object.entries(sub)){
+      sum[k]=(sum[k]||0)+v;
+    }
+  });
+  return sum;
 }
 
 function renderBasket(){
@@ -87,16 +117,27 @@ function renderBasket(){
     const ch=data[i];
     for(const mats of Object.values(ch.stages)){
       mats.forEach(m=>{
-        if(!sum[m.name]) sum[m.name]={...m};
-        else sum[m.name].count+=m.count;
+        const expanded=expandMaterial(m.name,m.count);
+        for(const [k,v] of Object.entries(expanded)){
+          if(!sum[k]) sum[k]=0;
+          sum[k]+=v;
+        }
       });
     }
   });
-  const list=Object.values(sum).sort((a,b)=>b.rarity-a.rarity);
+
+  // rarity 기준 정렬
+  const list=Object.keys(sum).map(name=>({
+    name,
+    count:sum[name],
+    rarity:(materials[name]&&materials[name].rarity)||0,
+    icon:(materials[name]&&materials[name].icon)||""
+  })).sort((a,b)=>b.rarity-a.rarity);
+
   list.forEach(m=>{
     const row=document.createElement("tr");
     const have=owned[m.name]||0;
-    row.innerHTML=`<td><img src="${m.icon}"></td>
+    row.innerHTML=`<td><img src="${m.icon}" width="24"></td>
                    <td>${m.name}</td>
                    <td>${m.count}</td>
                    <td><input type="number" value="${have}" min="0" onchange="updateOwned('${m.name}',this.value)"></td>`;
