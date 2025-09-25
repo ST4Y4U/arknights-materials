@@ -525,5 +525,229 @@
     "icon": "icons/sugar_substitute.png",
     "label": { "ko": "대체당" },
     "craft": []
+  },
+  "Skill Summary - 3": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/skill_summary3.png",
+    "label": { "ko": "스킬개론 제3권" },
+    "craft": [
+      { "name": "Skill Summary - 2", "count": 3 }
+    ]
+  },
+  "Skill Summary - 2": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/skill_summary2.png",
+    "label": { "ko": "스킬개론 제2권" },
+    "craft": [
+      { "name": "Skill Summary - 1", "count": 3 }
+    ]
+  },
+  "Skill Summary - 1": {
+    "rarity": 1,
+    "type": "material",
+    "icon": "icons/skill_summary1.png",
+    "label": { "ko": "스킬개론 제1권" },
+    "craft": []
+  },
+  "Caster Chip": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/caster_chip.png",
+    "label": { "ko": "캐스터 칩" },
+    "craft": []
+  },
+  "Defender Chip": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/defender_chip.png",
+    "label": { "ko": "디펜더 칩" },
+    "craft": []
+  },
+  "Guard Chip": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/guard_chip.png",
+    "label": { "ko": "가드 칩" },
+    "craft": []
+  },
+  "Medic Chip": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/medic_chip.png",
+    "label": { "ko": "메딕 칩" },
+    "craft": []
+  },
+  "Sniper Chip": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/sniper_chip.png",
+    "label": { "ko": "스나이퍼 칩" },
+    "craft": []
+  },
+  "Specialist Chip": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/specialist_chip.png",
+    "label": { "ko": "스페셜리스트 칩" },
+    "craft": []
+  },
+  "Supporter Chip": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/supporter_chip.png",
+    "label": { "ko": "서포터 칩" },
+    "craft": []
+  },
+  "Vanguard Chip": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/vanguard_chip.png",
+    "label": { "ko": "뱅가드 칩" },
+    "craft": []
+  },
+  "Caster Chip Pack": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/caster_chip_pack.png",
+    "label": { "ko": "캐스터 칩셋" },
+    "craft": []
+  },
+  "Defender Chip Pack": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/defender_chip_pack.png",
+    "label": { "ko": "디펜더 칩셋" },
+    "craft": []
+  },
+  "Guard Chip Pack": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/guard_chip_pack.png",
+    "label": { "ko": "가드 칩셋" },
+    "craft": []
+  },
+  "Medic Chip Pack": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/medic_chip_pack.png",
+    "label": { "ko": "메딕 칩셋" },
+    "craft": []
+  },
+  "Sniper Chip Pack": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/sniper_chip_pack.png",
+    "label": { "ko": "스나이퍼 칩셋" },
+    "craft": []
+  },
+  "Specialist Chip Pack": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/specialist_chip_pack.png",
+    "label": { "ko": "스페셜리스트 칩셋" },
+    "craft": []
+  },
+  "Supporter Chip Pack": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/supporter_chip_pack.png",
+    "label": { "ko": "서포터 칩셋" },
+    "craft": []
+  },
+  "Vanguard Chip Pack": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/vanguard_dualchip.png",
+    "label": { "ko": "뱅가드 칩셋" },
+    "craft": []
+  },
+  "Caster Dualchip": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/caster_dualchip.png",
+    "label": { "ko": "캐스터 듀얼칩" },
+    "craft": [
+      { "name": "Caster Chip Pack", "count": 2 },
+      { "name": "Chip Catalyst", "count": 1 }
+    ]
+  },
+  "Defender Dualchip": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/defender_dualchip.png",
+    "label": { "ko": "디펜더 듀얼칩" },
+    "craft": [
+      { "name": "Defender Chip Pack", "count": 2 },
+      { "name": "Chip Catalyst", "count": 1 }
+    ]
+  },
+  "Guard Dualchip": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/guard_dualchip.png",
+    "label": { "ko": "가드 듀얼칩" },
+    "craft": [
+      { "name": "Guard Chip Pack", "count": 2 },
+      { "name": "Chip Catalyst", "count": 1 }
+    ]
+  },
+  "Medic Dualchip": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/medic_dualchip.png",
+    "label": { "ko": "메딕 듀얼칩" },
+    "craft": [
+      { "name": "Medic Chip Pack", "count": 2 },
+      { "name": "Chip Catalyst", "count": 1 }
+    ]
+  },
+  "Sniper Dualchip": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/sniper_dualchip.png",
+    "label": { "ko": "스나이퍼 듀얼칩" },
+    "craft": [
+      { "name": "Sniper Chip Pack", "count": 2 },
+      { "name": "Chip Catalyst", "count": 1 }
+    ]
+  },
+  "Specialist Dualchip": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/specialist_dualchip.png",
+    "label": { "ko": "스페셜리스트 듀얼칩" },
+    "craft": [
+      { "name": "Specialist Chip Pack", "count": 2 },
+      { "name": "Chip Catalyst", "count": 1 }
+    ]
+  },
+  "Supporter Dualchip": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/supporter_dualchip.png",
+    "label": { "ko": "서포터 듀얼칩" },
+    "craft": [
+      { "name": "Supporter Chip Pack", "count": 2 },
+      { "name": "Chip Catalyst", "count": 1 }
+    ]
+  },
+  "Vanguard Dualchip": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/vanguard_dualchip.png",
+    "label": { "ko": "뱅가드 듀얼칩" },
+    "craft": [
+      { "name": "Vanguard Chip Pack", "count": 2 },
+      { "name": "Chip Catalyst", "count": 1 }
+    ]
+  },
+  "Chip Catalyst": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/chip_catalyst.png",
+    "label": { "ko": "칩 첨가제" },
+    "craft": []
   }
 }
