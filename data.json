@@ -1,15 +1,13 @@
-{
-  "name": "SilverAsh",                 // 내부키(영문, 고정)
-  "label": { "ko": "실버애쉬", "en": "SilverAsh" },  // 화면표시
-  "rarity": 6,
-  "image": "images/silverash.png",
-  "tags": ["가드","6성"],
-  "stages": {
-    "E1": [
-      { "name": "Guard Chip", "count": 4 }
-    ],
-    "E2": [
-      { "name": "Guard Dualchip", "count": 2 }
-    ]
+[
+  {
+    "name": "SilverAsh",
+    "label": { "ko": "실버애쉬", "en": "SilverAsh" },
+    "rarity": 6,
+    "image": "images/silverash.png",
+    "tags": ["가드","6성"],
+    "stages": {
+      "E1": [ { "name": "Guard Chip", "count": 4 } ],
+      "E2": [ { "name": "Guard Dualchip", "count": 2 } ]
+    }
   }
-}
+]
