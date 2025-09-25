@@ -1,0 +1,28 @@
+[
+  {
+    "name": "SilverAsh",
+    "image": "https://via.placeholder.com/150x100?text=SilverAsh",
+    "tags": ["가드","6성"],
+    "stages": {
+      "E1": [
+        {"name":"LMD","count":20000,"rarity":1,"icon":"https://via.placeholder.com/24?text=L"}
+      ],
+      "E2": [
+        {"name":"Elite Token","count":1,"rarity":3,"icon":"https://via.placeholder.com/24?text=T"}
+      ]
+    }
+  },
+  {
+    "name": "Exusiai",
+    "image": "https://via.placeholder.com/150x100?text=Exusiai",
+    "tags": ["스나이퍼","6성"],
+    "stages": {
+      "E1": [
+        {"name":"LMD","count":15000,"rarity":1,"icon":"https://via.placeholder.com/24?text=L"}
+      ],
+      "E2": [
+        {"name":"Chip","count":2,"rarity":2,"icon":"https://via.placeholder.com/24?text=C"}
+      ]
+    }
+  }
+]
