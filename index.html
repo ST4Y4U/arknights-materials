@@ -12,7 +12,6 @@
     .card img { width:100%; border-radius:4px; }
     #details { flex:1; padding:10px; border-left:1px solid #ccc; }
     #basket { border-top:1px solid #ccc; padding:10px; background:#f5f5f5; }
-    .hidden { display:none; }
     table { border-collapse:collapse; width:100%; }
     th, td { border:1px solid #ccc; padding:4px; text-align:center; }
   </style>
@@ -32,31 +31,18 @@
 </div>
 
 <script>
-// 더미 데이터
-const data = [
-  {
-    name: "SilverAsh",
-    image: "https://via.placeholder.com/150x100?text=SilverAsh",
-    tags: ["가드","6성"],
-    stages: {
-      "E1":[{name:"LMD",count:20000,rarity:1,icon:"https://via.placeholder.com/24?text=L"}],
-      "E2":[{name:"Elite Token",count:1,rarity:3,icon:"https://via.placeholder.com/24?text=T"}]
-    }
-  },
-  {
-    name: "Exusiai",
-    image: "https://via.placeholder.com/150x100?text=Exusiai",
-    tags: ["스나이퍼","6성"],
-    stages: {
-      "E1":[{name:"LMD",count:15000,rarity:1,icon:"https://via.placeholder.com/24?text=L"}],
-      "E2":[{name:"Chip",count:2,rarity:2,icon:"https://via.placeholder.com/24?text=C"}]
-    }
-  }
-];
-
-// LocalStorage 확보 데이터
+let data = [];
 let owned = JSON.parse(localStorage.getItem("owned")||"{}");
 let selected = [];
+
+// JSON 불러오기
+fetch("data.json")
+  .then(res=>res.json())
+  .then(json=>{
+    data=json;
+    renderGallery();
+    renderBasket();
+  });
 
 function renderGallery(){
   const g=document.getElementById("gallery");
@@ -122,9 +108,6 @@ function updateOwned(name,val){
   owned[name]=parseInt(val)||0;
   localStorage.setItem("owned",JSON.stringify(owned));
 }
-
-renderGallery();
-renderBasket();
 </script>
 </body>
 </html>
