@@ -1,0 +1,529 @@
+{
+  "LMD": {
+    "rarity": 0,
+    "type": "currency",
+    "icon": "icons/lmd.png",
+    "label": { "ko": "용문폐", "en": "LMD" },
+    "craft": []
+  },
+  "EXP": {
+    "rarity": 0,
+    "type": "exp",
+    "icon": "icons/exp.png",
+    "label": { "ko": "EXP", "en": "EXP" },
+    "craft": []
+  },
+  "Nucleic Crystal Sinter": {
+    "rarity": 4,
+    "type": "material",
+    "icon": "icons/nucleic_crystal_sinter.png",
+    "label": { "ko": "핵결정체 소결물" },
+    "craft": [
+      { "name": "Transmuted Salt Agglomerate", "count": 1 },
+      { "name": "Cutting Fluid Solution", "count": 1 },
+      { "name": "Refined Solvent", "count": 2 }
+    ]
+  },
+  "Polymerization Preparation": {
+    "rarity": 4,
+    "type": "material",
+    "icon": "icons/polymerization_preparation.png",
+    "label": { "ko": "중합제" },
+    "craft": [
+      { "name": "Orirock Concentration", "count": 1 },
+      { "name": "Oriron Block", "count": 1 },
+      { "name": "Keton Colloid", "count": 1 }
+    ]
+  },
+  "Crystalline Electronic Unit": {
+    "rarity": 4,
+    "type": "material",
+    "icon": "icons/crystalline_electronic_unit.png",
+    "label": { "ko": "결정 전자 장치" },
+    "craft": [
+      { "name": "Crystalline Circuit", "count": 1 },
+      { "name": "Polymerized Gel", "count": 2 },
+      { "name": "Incandescent Alloy Block", "count": 1 }
+    ]
+  },
+  "Bipolar Nanoflake": {
+    "rarity": 4,
+    "type": "material",
+    "icon": "icons/bipolar_nanoflake.png",
+    "label": { "ko": "바이폴라 나노플레이크 칩" },
+    "craft": [
+      { "name": "Optimized Device", "count": 1 },
+      { "name": "White Horse Kohl", "count": 2 }
+    ]
+  },
+  "D32 Steel": {
+    "rarity": 4,
+    "type": "material",
+    "icon": "icons/d32_steel.png",
+    "label": { "ko": "D32강" },
+    "craft": [
+      { "name": "Manganese Trihydrate", "count": 1 },
+      { "name": "Grindstone Pentahydrate", "count": 1 },
+      { "name": "RMA70-24", "count": 1 }
+    ]
+  },
+  "Rephasic Enantiomer": {
+    "rarity": 4,
+    "type": "material",
+    "icon": "icons/rephasic_enantiomer.png",
+    "label": { "ko": "중위상 엔안티오머" },
+    "craft": [
+      { "name": "Chiral Refractor", "count": 2 },
+      { "name": "Cyclicene Prefab", "count": 1 },
+      { "name": "Solidified Fiber Board", "count": 1 }
+    ]
+  },
+  "Chiral Refractor": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/chiral_refractor.png",
+    "label": { "ko": "카이랄 굴광체" },
+    "craft": [
+      { "name": "Coagulative Nodule", "count": 1 },
+      { "name": "Aggregate Cyclicene", "count": 1 },
+      { "name": "Sugar Pack", "count": 1 }
+    ]
+  },   
+  "Crystalline Circuit": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/crystalline_circuit.png",
+    "label": { "ko": "결정 회로" },
+    "craft": [
+      { "name": "Crystalline Component", "count": 2 },
+      { "name": "Coagulating Gel", "count": 1 },
+      { "name": "Incandescent Alloy", "count": 1 }
+    ]
+  },
+  "Cutting Fluid Solution": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/cutting_fluid_solution.png",
+    "label": { "ko": "절삭유 원액" },
+    "craft": [
+      { "name": "Compound Cutting Fluid", "count": 1 },
+      { "name": "Crystalline Component", "count": 1 },
+      { "name": "RMA70-12", "count": 1 }
+    ]
+  },
+  "Cyclicene Prefab": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/cyclicene_prefab.png",
+    "label": { "ko": "고리탄화수소 프리폼" },
+    "craft": [
+      { "name": "Aggregate Cyclicene", "count": 1 },
+      { "name": "Fuscous Fiber", "count": 1 },
+      { "name": "Transmuted Salt", "count": 1 }
+    ]
+  },
+  "Grindstone Pentahydrate": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/grindstone_pentahydrate.png",
+    "label": { "ko": "고급연마석" },
+    "craft": [
+      { "name": "Grindstone", "count": 1 },
+      { "name": "Oriron Cluster", "count": 1 },
+      { "name": "Integrated Device", "count": 1 }
+    ]
+  },
+  "Incandescent Alloy Block": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/incandescent_alloy_block.png",
+    "label": { "ko": "열합금 팩" },
+    "craft": [
+      { "name": "Integrated Device", "count": 1 },
+      { "name": "Grindstone", "count": 1 },
+      { "name": "Incandescent Alloy", "count": 1 }
+    ]
+  },
+  "Keton Colloid": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/keton_colloid.png",
+    "label": { "ko": "아케톤 팩" },
+    "craft": [
+      { "name": "Aketon", "count": 2 },
+      { "name": "Sugar Pack", "count": 1 },
+      { "name": "Manganese Ore", "count": 1 }
+    ]
+  },
+  "Manganese Trihydrate": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/manganese_trihydrate.png",
+    "label": { "ko": "망간 중합체" },
+    "craft": [
+      { "name": "Manganese Ore", "count": 2 },
+      { "name": "Polyester Pack", "count": 1 },
+      { "name": "Loxic Kohl", "count": 1 }
+    ]
+  },
+  "Optimized Device": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/optimized_device.png",
+    "label": { "ko": "개량 장치" },
+    "craft": [
+      { "name": "Integrated Device", "count": 1 },
+      { "name": "Orirock Cluster", "count": 2 },
+      { "name": "Grindstone", "count": 1 }
+    ]
+  },
+  "Orirock Concentration": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/orirock_concentration.png",
+    "label": { "ko": "정제 원암" },
+    "craft": [
+      { "name": "Orirock Cluster", "count": 4 }
+    ]
+  },
+  "Oriron Block": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/orirock_concentration.png",
+    "label": { "ko": "이철 팩" },
+    "craft": [
+      { "name": "Oriron Cluster", "count": 2 },
+      { "name": "Integrated Device", "count": 1 },
+      { "name": "Polyester Pack", "count": 1 }
+    ]
+  },
+  "Polyester Lump": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/polyester_lump.png",
+    "label": { "ko": "폴리에스테르 팩" },
+    "craft": [
+      { "name": "Polyester Pack", "count": 2 },
+      { "name": "Aketon", "count": 1 },
+      { "name": "Loxic Kohl", "count": 1 }
+    ]
+  },
+  "Polymerized Gel": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/polymerized_gel.png",
+    "label": { "ko": "중합젤" },
+    "craft": [
+      { "name": "Oriron Cluster", "count": 2 },
+      { "name": "Coagulating Gel", "count": 1 },
+      { "name": "Incandescent Alloy", "count": 1 }
+    ]
+  },
+  "Refined Solvent": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/refined_solvent.png",
+    "label": { "ko": "정제된 용제" },
+    "craft": [
+      { "name": "Semi-Synthetic Solvent", "count": 1 },
+      { "name": "Compound Cutting Fluid", "count": 1 },
+      { "name": "Coagulating Gel", "count": 1 }
+    ]
+  },
+  "RMA70-24": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/rma70-24.png",
+    "label": { "ko": "RMA70-24" },
+    "craft": [
+      { "name": "RMA70-12", "count": 1 },
+      { "name": "Orirock Cluster", "count": 2 },
+      { "name": "Aketon", "count": 1 }
+    ]
+  },
+  "Solidified Fiber Board": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/solidified_fiber_board.png",
+    "label": { "ko": "경화 섬유판" },
+    "craft": [
+      { "name": "Fuscous Fiber", "count": 1 },
+      { "name": "Polyester Pack", "count": 2 },
+      { "name": "Orirock Cluster", "count": 1 }
+    ]
+  },
+  "Sugar Lump": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/sugar_lump.png",
+    "label": { "ko": "포도당 팩" },
+    "craft": [
+      { "name": "Sugar Pack", "count": 2 },
+      { "name": "Oriron Cluster", "count": 1 },
+      { "name": "Manganese Ore", "count": 1 }
+    ]
+  },
+  "Transmuted Salt Agglomerate": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/transmuted_salt_agglomerate.png",
+    "label": { "ko": "합성 소금 팩" },
+    "craft": [
+      { "name": "Semi-Synthetic Solvent", "count": 1 },
+      { "name": "Sugar Pack", "count": 1 },
+      { "name": "Transmuted Salt", "count": 1 }
+    ]
+  },
+  "White Horse Kohl": {
+    "rarity": 3,
+    "type": "material",
+    "icon": "icons/white_horse_kohl.png",
+    "label": { "ko": "화이트 호스 콜" },
+    "craft": [
+      { "name": "Loxic Kohl", "count": 1 },
+      { "name": "Sugar Pack", "count": 1 },
+      { "name": "RMA70-12", "count": 1 }
+    ]
+  },
+  "Aggregate Cyclicene": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/aggregate_cyclicene.png",
+    "label": { "ko": "고리탄화수소 응집질" },
+    "craft": []
+  },
+  "Aketon": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/aggregate_cyclicene.png",
+    "label": { "ko": "아케톤 응집체 번들" },
+    "craft": [
+      { "name": "Polyketon", "count": 4 }
+    ]
+  },
+  "Coagulating Gel": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/coagulating_gel.png",
+    "label": { "ko": "젤" },
+    "craft": []
+  },
+  "Coagulative Nodule": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/coagulative_nodule.png",
+    "label": { "ko": "유사 응결핵" },
+    "craft": []
+  },
+  "Compound Cutting Fluid": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/compound_cutting_fluid.png",
+    "label": { "ko": "중합 절삭유" },
+    "craft": []
+  },
+  "Crystalline Component": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/crystalline_component.png",
+    "label": { "ko": "결정 부품" },
+    "craft": []
+  },
+  "Fuscous Fiber": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/fuscous_fiber.png",
+    "label": { "ko": "퓨신 섬유" },
+    "craft": []
+  },
+  "Grindstone": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/grindstone.png",
+    "label": { "ko": "연마석" },
+    "craft": []
+  },
+  "Incandescent Alloy": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/incandescent_alloy.png",
+    "label": { "ko": "열합금" },
+    "craft": []
+  },
+  "Integrated Device": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/integrated_device.png",
+    "label": { "ko": "리뉴얼 장치" },
+    "craft": [
+      { "name": "Device", "count": 4 }
+    ]
+  },
+  "Loxic Kohl": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/loxic_kohl.png",
+    "label": { "ko": "로식 콜" },
+    "craft": []
+  },
+  "Manganese Ore": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/manganese_ore.png",
+    "label": { "ko": "망간 광석" },
+    "craft": []
+  },
+  "Orirock Cluster": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/orirock_cluster.png",
+    "label": { "ko": "원암 큐브 번들" },
+    "craft": [
+      { "name": "Orirock Cube", "count": 5 }
+    ]
+  },
+  "Oriron Cluster": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/oriron_cluster.png",
+    "label": { "ko": "이철 번들" },
+    "craft": [
+      { "name": "Oriron", "count": 4 }
+    ]
+  },
+  "Polyester Pack": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/polyester_pack.png",
+    "label": { "ko": "폴리에스테르 번들" },
+    "craft": [
+      { "name": "Polyester", "count": 4 }
+    ]
+  },
+  "RMA70-12": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/rma70-12.png",
+    "label": { "ko": "RMA70-12" },
+    "craft": []
+  },
+  "Semi-Synthetic Solvent": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/semi-synthetic_solvent.png",
+    "label": { "ko": "반합성 용제" },
+    "craft": []
+  },
+  "Sugar Pack": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/sugar_pack.png",
+    "label": { "ko": "포도당 번들" },
+    "craft": [
+      { "name": "Sugar", "count": 4 }
+    ]
+  },
+  "Transmuted Salt": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/transmuted_salt.png",
+    "label": { "ko": "합성 소금 번들" },
+    "craft": []
+  },
+  "Device": {
+    "rarity": 1,
+    "type": "material",
+    "icon": "icons/device.png",
+    "label": { "ko": "장치" },
+    "craft": [
+      { "name": "Damaged Device", "count": 3 }
+    ]
+  },
+  "Orirock Cube": {
+    "rarity": 1,
+    "type": "material",
+    "icon": "icons/orirock_cube.png",
+    "label": { "ko": "원암 큐브" },
+    "craft": [
+      { "name": "Orirock", "count": 3 }
+    ]
+  },
+  "Oriron": {
+    "rarity": 1,
+    "type": "material",
+    "icon": "icons/oriron.png",
+    "label": { "ko": "이철" },
+    "craft": [
+      { "name": "Oriron Shard", "count": 3 }
+    ]
+  },
+  "Polyester": {
+    "rarity": 1,
+    "type": "material",
+    "icon": "icons/polyester.png",
+    "label": { "ko": "폴리에스테르" },
+    "craft": [
+      { "name": "Ester", "count": 3 }
+    ]
+  },
+  "Polyketon": {
+    "rarity": 1,
+    "type": "material",
+    "icon": "icons/polyketon.png",
+    "label": { "ko": "아케톤 응집체" },
+    "craft": [
+      { "name": "Diketon", "count": 3 }
+    ]
+  },
+  "Sugar": {
+    "rarity": 1,
+    "type": "material",
+    "icon": "icons/sugar.png",
+    "label": { "ko": "포도당" },
+    "craft": [
+      { "name": "Sugar Substitute", "count": 3 }
+    ]
+  },
+  "Damaged Device": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/damaged_device.png",
+    "label": { "ko": "파손된 장치" },
+    "craft": []
+  },
+  "Diketon": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/diketon.png",
+    "label": { "ko": "디케톤" },
+    "craft": []
+  },
+  "Ester": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/ester.png",
+    "label": { "ko": "에스테르 원료" },
+    "craft": []
+  },
+  "Orirock": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/orirock.png",
+    "label": { "ko": "원암" },
+    "craft": []
+  },
+  "Oriron Shard": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/oriron_shard.png",
+    "label": { "ko": "이철 조각" },
+    "craft": []
+  },
+  "Sugar Substitute": {
+    "rarity": 2,
+    "type": "material",
+    "icon": "icons/sugar_substitute.png",
+    "label": { "ko": "대체당" },
+    "craft": []
+  }
+}
