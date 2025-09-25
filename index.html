@@ -117,6 +117,8 @@
   </section>
 
 <script>
+const STAGE_LABELS = { E1: "1차 정예화", E2: "2차 정예화" };
+const stageDisp = s => STAGE_LABELS[s] || s;
 /* ---------- 상태 ---------- */
 let data = [];
 let materials = {};
@@ -230,7 +232,7 @@ function renderDetails(){
   let html = `<h2>${dispChar(ch)}</h2>`;
   if(ch.image) html += `<div style="margin:6px 0 10px">${imgTag(ch.image, ch.name)}</div>`;
   for(const [stage, mats] of Object.entries(ch.stages||{})){
-    html += `<h3>${stage}</h3><ul>`;
+    html += `<h3>${stageDisp(stage)}</h3><ul>`;
     (mats||[]).forEach(m=>{ html += `<li>${disp(m.name)} × ${m.count}</li>`; });
     html += `</ul>`;
   }
@@ -349,3 +351,4 @@ function updateOwned(name, val){
 </script>
 </body>
 </html>
+
