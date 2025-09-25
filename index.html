@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>명일방주 재료 계산기</title>
+  <style>
+    body { display: flex; flex-direction: column; font-family: sans-serif; margin:0; }
+    header { background:#111; color:#fff; padding:10px; text-align:center; }
+    main { display:flex; flex:1; }
+    #gallery { flex:1; padding:10px; display:grid; grid-template-columns:repeat(auto-fill,150px); gap:10px; }
+    .card { border:1px solid #ccc; border-radius:8px; padding:5px; text-align:center; cursor:pointer; }
+    .card img { width:100%; border-radius:4px; }
+    #details { flex:1; padding:10px; border-left:1px solid #ccc; }
+    #basket { border-top:1px solid #ccc; padding:10px; background:#f5f5f5; }
+    .hidden { display:none; }
+    table { border-collapse:collapse; width:100%; }
+    th, td { border:1px solid #ccc; padding:4px; text-align:center; }
+  </style>
+</head>
+<body>
+<header><h1>명일방주 캐릭터 재료 계산기</h1></header>
+<main>
+  <div id="gallery"></div>
+  <div id="details"><em>캐릭터를 선택하세요</em></div>
+</main>
+<div id="basket">
+  <h2>장바구니 합계</h2>
+  <table id="basketTable">
+    <thead><tr><th>아이콘</th><th>재료</th><th>필요</th><th>확보</th></tr></thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<script>
+// 더미 데이터
+const data = [
+  {
+    name: "SilverAsh",
+    image: "https://via.placeholder.com/150x100?text=SilverAsh",
+    tags: ["가드","6성"],
+    stages: {
+      "E1":[{name:"LMD",count:20000,rarity:1,icon:"https://via.placeholder.com/24?text=L"}],
+      "E2":[{name:"Elite Token",count:1,rarity:3,icon:"https://via.placeholder.com/24?text=T"}]
+    }
+  },
+  {
+    name: "Exusiai",
+    image: "https://via.placeholder.com/150x100?text=Exusiai",
+    tags: ["스나이퍼","6성"],
+    stages: {
+      "E1":[{name:"LMD",count:15000,rarity:1,icon:"https://via.placeholder.com/24?text=L"}],
+      "E2":[{name:"Chip",count:2,rarity:2,icon:"https://via.placeholder.com/24?text=C"}]
+    }
+  }
+];
+
+// LocalStorage 확보 데이터
+let owned = JSON.parse(localStorage.getItem("owned")||"{}");
+let selected = [];
+
+function renderGallery(){
+  const g=document.getElementById("gallery");
+  g.innerHTML="";
+  data.forEach((ch,i)=>{
+    const c=document.createElement("div");
+    c.className="card";
+    c.innerHTML=`<img src="${ch.image}"><br>${ch.name}`;
+    c.onclick=()=>toggleSelect(i);
+    g.appendChild(c);
+  });
+}
+
+function toggleSelect(i){
+  const idx=selected.indexOf(i);
+  if(idx==-1) selected.push(i); else selected.splice(idx,1);
+  renderDetails(i);
+  renderBasket();
+}
+
+function renderDetails(i){
+  const d=document.getElementById("details");
+  if(selected.indexOf(i)==-1){ d.innerHTML="<em>캐릭터를 선택하세요</em>"; return; }
+  const ch=data[i];
+  let html=`<h2>${ch.name}</h2>`;
+  for(const [stage,mats] of Object.entries(ch.stages)){
+    html+=`<h3>${stage}</h3><ul>`;
+    mats.forEach(m=>{
+      html+=`<li><img src="${m.icon}"> ${m.name} x${m.count}</li>`;
+    });
+    html+="</ul>";
+  }
+  html+=`<button onclick="toggleSelect(${i})">선택 해제</button>`;
+  d.innerHTML=html;
+}
+
+function renderBasket(){
+  const tbl=document.querySelector("#basketTable tbody");
+  tbl.innerHTML="";
+  let sum={};
+  selected.forEach(i=>{
+    const ch=data[i];
+    for(const mats of Object.values(ch.stages)){
+      mats.forEach(m=>{
+        if(!sum[m.name]) sum[m.name]={...m};
+        else sum[m.name].count+=m.count;
+      });
+    }
+  });
+  const list=Object.values(sum).sort((a,b)=>b.rarity-a.rarity);
+  list.forEach(m=>{
+    const row=document.createElement("tr");
+    const have=owned[m.name]||0;
+    row.innerHTML=`<td><img src="${m.icon}"></td>
+                   <td>${m.name}</td>
+                   <td>${m.count}</td>
+                   <td><input type="number" value="${have}" min="0" onchange="updateOwned('${m.name}',this.value)"></td>`;
+    tbl.appendChild(row);
+  });
+}
+
+function updateOwned(name,val){
+  owned[name]=parseInt(val)||0;
+  localStorage.setItem("owned",JSON.stringify(owned));
+}
+
+renderGallery();
+renderBasket();
+</script>
+</body>
+</html>
