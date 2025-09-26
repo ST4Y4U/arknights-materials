@@ -66,17 +66,6 @@
     }
   },
   {
-    "name": "Beagle",
-    "label": { "ko": "비글", "en": "Beagle" },
-    "rarity": 3,
-    "image": "images/beagle.png",
-    "tags": ["디펜더","3성"],
-    "release": 6,
-    "stages": {
-      "E1": []
-    }
-  },
-  {
     "name": "Kroos",
     "label": { "ko": "크루스", "en": "Kroos" },
     "rarity": 3,
@@ -94,17 +83,6 @@
     "image": "images/adnachiel.png",
     "tags": ["스나이퍼","3성"],
     "release": 8,
-    "stages": {
-      "E1": []
-    }
-  },
-  {
-    "name": "Lava",
-    "label": { "ko": "라바", "en": "Lava" },
-    "rarity": 3,
-    "image": "images/lava.png",
-    "tags": ["캐스터","3성"],
-    "release": 9,
     "stages": {
       "E1": []
     }
