@@ -77,13 +77,13 @@
       <input id="q" type="search" placeholder="캐릭터 검색 (이름/태그)" />
       <label class="switch"><input type="checkbox" id="expandToggle" /> 하위 재료 포함</label>
       <select id="groupBy">
-        <option value="rarity">정렬: 희귀도(합계표)</option>
-        <option value="tier">정렬: 티어(합계표)</option>
+        <option value="rarity">정렬: 희귀도</option>
+        <option value="tier">정렬: 티어</option>
       </select>
       <select id="sortBy">
-        <option value="release">정렬: 출시순(갤러리)</option>
-        <option value="rarity">정렬: 희귀도(갤러리)</option>
-        <option value="name">정렬: 이름(갤러리)</option>
+        <option value="release">정렬: 출시순</option>
+        <option value="rarity">정렬: 희귀도</option>
+        <option value="name">정렬: 이름</option>
       </select>
       <button id="sortDirBtn">오름차순</button>
     </div>
@@ -101,14 +101,14 @@
         <button id="clearOwn" class="danger">확보 수량 초기화</button>
         <span class="small" id="selMeta"></span>
       </div>
-      <div id="details"><em class="small">좌측에서 캐릭터를 선택해.</em></div>
+      <div id="details"><em class="small">좌측에서 캐릭터를 선택하세요.</em></div>
     </section>
   </main>
 
   <section id="basketWrap">
     <details open>
       <summary>
-        <strong>장바구니 합계</strong>
+        <strong>필요 재화 합계</strong>
         <span class="pill" id="selCount">0명 선택됨</span>
       </summary>
 
@@ -125,7 +125,7 @@
         </table>
       </div>
 
-      <h3 style="margin-top:16px">통화 / EXP</h3>
+      <h3 style="margin-top:16px">LMD / EXP</h3>
       <div class="scrollArea">
         <table id="basketMisc">
           <thead>
@@ -135,7 +135,7 @@
         </table>
       </div>
 
-      <p class="small">확보 수량은 이 브라우저의 LocalStorage에 저장된다.</p>
+      <p class="small">확보 수량은 이 브라우저의 LocalStorage에 저장됩니다.</p>
     </details>
   </section>
 
@@ -511,3 +511,4 @@ function updateOwned(name, val){
 </script>
 </body>
 </html>
+
