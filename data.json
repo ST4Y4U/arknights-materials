@@ -141,5 +141,17 @@
     "stages": {
       "E1": []
     }
+  },
+  {
+    "name": "Exusiai the New Covenant",
+    "label": { "ko": "엑시아 더 뉴 커버넌트", "en": "Exusiai the New Covenant" },
+    "rarity": 3,
+    "image": "images/exusiai_the_new_covenant.png",
+    "tags": ["스페셜리스트","6성"],
+    "release": 14,
+    "stages": {
+      "E1": [ {"Specialist Chip Pack": 5 }, {"Polyketon": 7 }, {"Device" : 3 } ],
+      "E2": [ {"Specialist Dualchip": 4 }, {"Rephasic Enantiomer": 4 }, {"RMA70-24": 2 } ]
+    }
   }
 ]
