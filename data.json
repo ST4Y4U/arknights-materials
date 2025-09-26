@@ -150,8 +150,8 @@
     "tags": ["스페셜리스트","6성"],
     "release": 14,
     "stages": {
-      "E1": [ {"Specialist Chip Pack": 5 }, {"Polyketon": 7 }, {"Device" : 3 } ],
-      "E2": [ {"Specialist Dualchip": 4 }, {"Rephasic Enantiomer": 4 }, {"RMA70-24": 2 } ]
+      "E1": [ {"name":"Specialist Chip Pack","count":5 }, {"name":"Polyketon","count":7 }, {"name":"Device","count":3 } ],
+      "E2": [ {"name":"Specialist Dualchip","count": 4 }, {"name":"Rephasic Enantiomer","count": 4 }, {"name":"RMA70-24","count": 2 } ]
     }
   }
 ]
