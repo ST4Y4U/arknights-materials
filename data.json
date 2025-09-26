@@ -1,13 +1,167 @@
 [
   {
-    "name": "SilverAsh",
-    "label": { "ko": "실버애쉬", "en": "SilverAsh" },
-    "rarity": 6,
-    "image": "images/silverash.png",
-    "tags": ["가드","6성"],
+    "name": "Fang",
+    "label": { "ko": "팽", "en": "Fang" },
+    "rarity": 3,
+    "image": "images/fang.png",
+    "tags": ["뱅가드","3성"],
+    "release": 1,
     "stages": {
-      "E1": [ { "name": "Guard Chip", "count": 4 } ],
-      "E2": [ { "name": "Guard Dualchip", "count": 2 } ]
+      "E1": []
     }
-  }
+  },
+  {
+    "name": "Vanilla",
+    "label": { "ko": "바닐라", "en": "Vanilla" },
+    "rarity": 3,
+    "image": "images/vanilla.png",
+    "tags": ["뱅가드","3성"],
+    "release": 2,
+    "stages": {
+      "E1": []
+    }
+  },
+  {
+    "name": "Plume",
+    "label": { "ko": "플룸", "en": "Plume" },
+    "rarity": 3,
+    "image": "images/plume.png",
+    "tags": ["뱅가드","3성"],
+    "release": 3,
+    "stages": {
+      "E1": []
+    }
+  },
+  {
+    "name": "Melantha",
+    "label": { "ko": "멜란사", "en": "Melantha" },
+    "rarity": 3,
+    "image": "images/melantha.png",
+    "tags": ["가드","3성"],
+    "release": 4,
+    "stages": {
+      "E1": []
+    }
+  },
+  {
+    "name": "Cardigan",
+    "label": { "ko": "카디건", "en": "Cardigan" },
+    "rarity": 3,
+    "image": "images/cardigan.png",
+    "tags": ["디펜더","3성"],
+    "release": 5,
+    "stages": {
+      "E1": []
+    }
+  },
+  {
+    "name": "Beagle",
+    "label": { "ko": "비글", "en": "Beagle" },
+    "rarity": 3,
+    "image": "images/beagle.png",
+    "tags": ["디펜더","3성"],
+    "release": 6,
+    "stages": {
+      "E1": []
+    }
+  },
+  {
+    "name": "Beagle",
+    "label": { "ko": "비글", "en": "Beagle" },
+    "rarity": 3,
+    "image": "images/beagle.png",
+    "tags": ["디펜더","3성"],
+    "release": 6,
+    "stages": {
+      "E1": []
+    }
+  },
+  {
+    "name": "Kroos",
+    "label": { "ko": "크루스", "en": "Kroos" },
+    "rarity": 3,
+    "image": "images/kroos.png",
+    "tags": ["스나이퍼","3성"],
+    "release": 7,
+    "stages": {
+      "E1": []
+    }
+  },
+  {
+    "name": "Adnachiel",
+    "label": { "ko": "아드나키엘", "en": "Adnachiel" },
+    "rarity": 3,
+    "image": "images/adnachiel.png",
+    "tags": ["스나이퍼","3성"],
+    "release": 8,
+    "stages": {
+      "E1": []
+    }
+  },
+  {
+    "name": "Lava",
+    "label": { "ko": "라바", "en": "Lava" },
+    "rarity": 3,
+    "image": "images/lava.png",
+    "tags": ["캐스터","3성"],
+    "release": 9,
+    "stages": {
+      "E1": []
+    }
+  },
+  {
+    "name": "Lava",
+    "label": { "ko": "라바", "en": "Lava" },
+    "rarity": 3,
+    "image": "images/lava.png",
+    "tags": ["캐스터","3성"],
+    "release": 9,
+    "stages": {
+      "E1": []
+    }
+  },
+  {
+    "name": "Hibiscus",
+    "label": { "ko": "히비스커스", "en": "Hibiscus" },
+    "rarity": 3,
+    "image": "images/hibiscus.png",
+    "tags": ["메딕","3성"],
+    "release": 10,
+    "stages": {
+      "E1": []
+    }
+  },
+  {
+    "name": "Ansel",
+    "label": { "ko": "안셀", "en": "Ansel" },
+    "rarity": 3,
+    "image": "images/ansel.png",
+    "tags": ["메딕","3성"],
+    "release": 11,
+    "stages": {
+      "E1": []
+    }
+  },
+  {
+    "name": "Steward",
+    "label": { "ko": "스튜어드", "en": "Steward" },
+    "rarity": 3,
+    "image": "images/steward.png",
+    "tags": ["캐스터","3성"],
+    "release": 12,
+    "stages": {
+      "E1": []
+    }
+  },
+  {
+    "name": "Orchid",
+    "label": { "ko": "오키드", "en": "Orchid" },
+    "rarity": 3,
+    "image": "images/orchid.png",
+    "tags": ["서포터","3성"],
+    "release": 13,
+    "stages": {
+      "E1": []
+    }
+  },
 ]
