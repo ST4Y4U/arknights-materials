@@ -535,7 +535,6 @@ function injectCosts(ch, stageKey, acc){
   const kEn = STAGE_REVERSE[k] || k;
 
   add((costs?.promotion_costs?.[r]?.[k])   || (costs?.promotion_costs?.[r]?.[kKo]) || (costs?.promotion_costs?.[r]?.[kEn]));
-  add((costs?.promotion_prereq?.[r]?.[k])  || (costs?.promotion_prereq?.[r]?.[kKo])|| (costs?.promotion_prereq?.[r]?.[kEn]));
   add((costs?.promotion_fee?.[r]?.[k])     || (costs?.promotion_fee?.[r]?.[kKo])   || (costs?.promotion_fee?.[r]?.[kEn]));
   add((costs?.promotion_override?.[ch.name]?.[k]) || (costs?.promotion_override?.[ch.name]?.[kKo]) || (costs?.promotion_override?.[ch.name]?.[kEn]));
 }
@@ -660,3 +659,4 @@ function updateOwned(name, val){
 </script>
 </body>
 </html>
+
