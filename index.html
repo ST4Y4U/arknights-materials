@@ -5,7 +5,7 @@
   <title>명일방주 재료 계산기</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
-    :root{ --bg:#0f1115; --panel:#171a21; --muted:#aab2c0; --pri:#20c997; --bd:#2a2f3a; --card:#1b1f27; --sel:#243548;}
+    :root{ --bg:#0f1115; --panel:#171a21; --muted:#aab2c0; --pri:#20c997; --bd:#2a2f3a; --card:#1b1f27; --sel:#243548; --red:#d9534f;}
     *{box-sizing:border-box}
     body{margin:0; font-family:system-ui,Segoe UI,Roboto,Apple SD Gothic Neo,Malgun Gothic,sans-serif; background:var(--bg); color:#e6e9ef; display:flex; flex-direction:column; min-height:100vh}
     header{padding:12px 16px; background:#10131a; border-bottom:1px solid var(--bd); display:flex; flex-direction:column; gap:8px}
@@ -41,7 +41,7 @@
     .tbl th,.tbl td{border-bottom:1px solid var(--bd); padding:6px; text-align:center}
     .tbl th{background:#121722; color:#cdd6e5}
     .tbl td:first-child,.tbl th:first-child{text-align:left}
-    .optCol label{display:block; margin:4px 0} /* 레벨업 프리셋 줄바꿈 */
+    .optCol label{display:block; margin:4px 0}
     .small{font-size:12px; color:#aab2c0}
     .rightTools{display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin:8px 0}
     .grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px; align-items:start}
@@ -58,6 +58,12 @@
     .miscGrid{display:grid; grid-template-rows: 1fr 2fr; gap:8px}
     .currencyArea .scrollArea{max-height:120px}
     .otherArea .scrollArea{max-height:220px}
+    .btnPri{background:#112821; border-color:#1d6; color:#bff3e3}
+    .btnPri:hover{filter:brightness(1.05)}
+    .btnDanger{background:#2a1717; border-color:#a33; color:#f4c9c9}
+    .btnDanger:hover{filter:brightness(1.05)}
+    .pill{font-size:12px; color:#9fb; background:#0f1d18; border:1px solid #1d3; padding:2px 8px; border-radius:999px}
+    .tip{margin-left:6px; color:#aab2c0; border-bottom:1px dotted #5a6575; cursor:help; font-weight:400}
     @media (max-width: 1024px){
       main{grid-template-columns:1fr}
       #left{border-right:none; border-bottom:1px solid var(--bd)}
@@ -114,9 +120,9 @@
 
     <section id="right">
       <div class="rightTools">
-        <button id="clearSel">선택 초기화</button>
-        <button id="clearOwn" class="danger">확보 수량 초기화</button>
-        <span class="small" id="selMeta"></span>
+        <button id="clearSel" class="btnPri">선택 초기화</button>
+        <button id="clearOwn" class="btnDanger">확보 수량 초기화</button>
+        <span class="pill" id="selMeta"></span>
       </div>
       <div id="details"><em class="small">좌측에서 캐릭터를 선택하세요.</em></div>
     </section>
@@ -132,6 +138,7 @@
       <div class="selList" id="selList"></div>
 
       <div class="grid2" style="margin-top:8px">
+        <!-- 좌: 재료 -->
         <div>
           <div class="scrollArea">
             <table id="basketTable">
@@ -143,6 +150,7 @@
           </div>
         </div>
 
+        <!-- 우: 1/3 LMD/EXP + 2/3 기타 -->
         <div class="miscGrid">
           <div class="currencyArea">
             <div class="scrollArea">
@@ -173,7 +181,7 @@
   <footer>
     <details>
       <summary>도움말 / 출처</summary>
-    <div class="small" id="aboutBox">
+      <div class="small" id="aboutBox">
         • 사용법: 좌측에서 캐릭터를 선택하고 우측 옵션을 설정하세요.<br>
         • 출처: 작성자 제공 자료 및 게임 내 표기. 외부 출처는 추후 추가.
       </div>
@@ -186,7 +194,7 @@ const STAGE_LABELS = { E1: "1차 정예화", E2: "2차 정예화" };
 const STAGE_REVERSE = Object.fromEntries(Object.entries(STAGE_LABELS).map(([k,v])=>[v,k]));
 const stageDisp = s => STAGE_LABELS[s] || s;
 
-/* “용문폐 / EXP” 그룹에 포함시킬 추가 항목들 */
+/* “LMD/EXP” 그룹 판별에 쓰는 이름셋 */
 const MISC_NAME_SET = new Set([
   "모듈 데이터 칩","데이터 리더기","데이터 메모리","스킬개론 시리즈",
   "Module Data Block","Data Supplement Stick","Data Supplement Instrument","Data Crystal",
@@ -207,15 +215,15 @@ let owned = JSON.parse(localStorage.getItem("owned_v1") || "{}");
 let activeTags = new Set(); let query = "";
 let sortBy = "release"; let sortDir = "asc";
 let page=1, pageSize=48, filteredCount=0;
-let expandTo = -1; // -1 = 미포함, 1..4 = 희귀도 임계
+let expandTo = -1;
 let sumSort = "count";
 
-/* 스킬 옵션: 1~7 목표레벨 + 마스터리 */
+/* 스킬 옵션: 1~7 + 마스터리 */
 let skillOpt = JSON.parse(localStorage.getItem("skillOpt_v3") || "{}");
 function getSkillOpt(ch){
   const k = ch.name;
   if(!skillOpt[k]) skillOpt[k] = {
-    lvTarget: 1,            // 1~7
+    lvTarget: 1,
     s1:{m1:false,m2:false,m3:false},
     s2:{m1:false,m2:false,m3:false},
     s3:{m1:false,m2:false,m3:false}
@@ -224,9 +232,8 @@ function getSkillOpt(ch){
 }
 function saveSkillOpt(){ localStorage.setItem("skillOpt_v3", JSON.stringify(skillOpt)); }
 
-/* 모듈/레벨업 프리셋 + 단계(E1/E2) 포함 옵션 */
+/* 모듈/레벨업 프리셋 + 단계 포함 */
 let modOpt = JSON.parse(localStorage.getItem("modOpt_v2") || "{}");
-/* 구조: { 캐명:{ levelPreset:0, types:{ "COR-Y":0 }, stages:{E1:true,E2:true} } } */
 function getModOpt(ch){
   const k = ch.name;
   if(!modOpt[k]) modOpt[k] = { levelPreset: 0, types:{}, stages:{E1:true,E2:true} };
@@ -359,11 +366,37 @@ function toggleSelect(i){
   renderGallery(); renderBasket(); renderDetails();
 }
 
+/* ---------- 정예화 비용 툴팁 ---------- */
+function getPromoCostObj(ch, stage){
+  const r=String(ch.rarity??"");
+  const k=stage, kKo=STAGE_LABELS[k]||k, kEn=STAGE_REVERSE[k]||k;
+  let o={};
+  const add = src=>{ if(!src) return; for(const [n,c] of Object.entries(src)) o[n]=(o[n]||0)+c; };
+  add(costs?.promotion_costs?.[r]?.[k]   || costs?.promotion_costs?.[r]?.[kKo]   || costs?.promotion_costs?.[r]?.[kEn]);
+  add(costs?.promotion_fee?.[r]?.[k]     || costs?.promotion_fee?.[r]?.[kKo]     || costs?.promotion_fee?.[r]?.[kEn]);
+  add(costs?.promotion_override?.[ch.name]?.[k] || costs?.promotion_override?.[ch.name]?.[kKo] || costs?.promotion_override?.[ch.name]?.[kEn]);
+  return o;
+}
+function promoTooltip(ch, stage){
+  const o = getPromoCostObj(ch, stage);
+  const entries = Object.entries(o);
+  if(entries.length===0) return "정예 비용 없음";
+  entries.sort((a,b)=>{
+    const prio = n=> n==="LMD" ? 0 : n==="EXP" ? 1 : 2;
+    const d = prio(a[0])-prio(b[0]); if(d) return d;
+    const ra=(materials[a[0]]?.rarity??0), rb=(materials[b[0]]?.rarity??0);
+    return ra-rb || a[0].localeCompare(b[0],"ko");
+  });
+  const text = entries.slice(0,10).map(([n,c])=>`${(materials[n]?.label?.ko)||n} ${c}`).join(", ");
+  const more = entries.length>10 ? `, 외 ${entries.length-10}종` : "";
+  return `정예 비용 포함: ${text}${more}`;
+}
+
 /* ---------- 상세 ---------- */
 function allowedLvPresetsByRarity(r){
   if(r<=2) return [0,1];      // 1~2성: ~0차 + 최대
-  if(r===3) return [0,2];     // 3성: ~1차 + 최대
-  return [0,1,2,3,4];         // 4~6성: 전체
+  if(r===3) return [0,1,2];   // 3성: ~0차 + 최대, ~1차 + 최대
+  return [0,1,2,3,4];         // 4~6성
 }
 function renderDetails(){
   const d = $("#details");
@@ -375,16 +408,21 @@ function renderDetails(){
 
   let html = `<h2>${dispChar(ch)}</h2>`;
 
-  /* 단계 표 좌우 */
+  /* 단계 표 좌우 + 정예비용 툴팁 */
   const stageEntries = Object.entries(ch.stages||{});
   const stageTables = stageEntries.map(([stage, mats])=>{
     if(typeof mo.stages?.[stage] === "undefined") mo.stages[stage] = true;
     const checked = mo.stages[stage] ? "checked" : "";
+    const tt = promoTooltip(ch, stage).replace(/"/g,'&quot;');
     return `
       <table class="tbl">
         <thead>
           <tr>
-            <th style="text-align:left">${stageDisp(stage)} <label class="small" style="margin-left:8px"><input type="checkbox" data-stage="${stage}" ${checked}> 포함</label></th>
+            <th style="text-align:left">
+              ${stageDisp(stage)}
+              <label class="small" style="margin-left:8px"><input type="checkbox" data-stage="${stage}" ${checked}> 포함</label>
+              <span class="tip" title="${tt}">정예 비용 포함</span>
+            </th>
             <th>아이콘</th><th>재료</th><th>수량</th>
           </tr>
         </thead>
@@ -403,7 +441,7 @@ function renderDetails(){
   }).join("");
   if(stageTables){ html += `<div class="grid2">${stageTables}</div>`; }
 
-  /* 좌: 레벨업 프리셋(라벨 단축), 우: 스킬 옵션(1~7레벨 + 마스터리) */
+  /* 좌: 레벨업 프리셋, 우: 스킬 옵션(1~2성 비표시) */
   const r = ch.rarity||0;
   const allowed = allowedLvPresetsByRarity(r);
   if(!allowed.includes(mo.levelPreset||0)){ mo.levelPreset = 0; saveModOpt(); }
@@ -428,59 +466,63 @@ function renderDetails(){
       </tbody>
     </table>`;
 
-  const hasMastery = r>3;
-  const sLbl = (k, fb)=>{
-    const src = ch.skills?.[k]?.icon || "";
-    const img = src ? `<img src="${src}" alt="${fb}" width="22" height="22" style="vertical-align:middle;border-radius:4px;background:#0b0d12;margin-right:6px">` : "";
-    return img+fb;
-  };
-  let rows = `
-    <tr>
-      <td>스킬 1~7레벨</td>
-      <td colspan="3" style="text-align:left">
-        목표 레벨
-        <select id="lvTarget">
-          ${[1,2,3,4,5,6,7].map(n=>`<option value="${n}" ${sk.lvTarget===n?'selected':''}>${n}</option>`).join('')}
-        </select>
-        <span class="small">(1은 미선택)</span>
-      </td>
-    </tr>`;
-  if(hasMastery){
-    rows += `
-      <tr><td>${sLbl("s1","스킬 1")}</td>
-        <td><label><input type="checkbox" id="s1_m1" ${sk.s1.m1?'checked':''}> 8</label></td>
-        <td><label><input type="checkbox" id="s1_m2" ${sk.s1.m2?'checked':''}> 9</label></td>
-        <td><label><input type="checkbox" id="s1_m3" ${sk.s1.m3?'checked':''}> 10</label></td></tr>
-      <tr><td>${sLbl("s2","스킬 2")}</td>
-        <td><label><input type="checkbox" id="s2_m1" ${sk.s2.m1?'checked':''}> 8</label></td>
-        <td><label><input type="checkbox" id="s2_m2" ${sk.s2.m2?'checked':''}> 9</label></td>
-        <td><label><input type="checkbox" id="s2_m3" ${sk.s2.m3?'checked':''}> 10</label></td></tr>
-      <tr><td>${sLbl("s3","스킬 3")}</td>
-        <td><label><input type="checkbox" id="s3_m1" ${sk.s3.m1?'checked':''}> 8</label></td>
-        <td><label><input type="checkbox" id="s3_m2" ${sk.s3.m2?'checked':''}> 9</label></td>
-        <td><label><input type="checkbox" id="s3_m3" ${sk.s3.m3?'checked':''}> 10</label></td></tr>`;
+  let rightCol = "";
+  if(r>=3){
+    const hasMastery = r>3;
+    const sLbl = (k, fb)=>{
+      const src = ch.skills?.[k]?.icon || "";
+      const img = src ? `<img src="${src}" alt="${fb}" width="22" height="22" style="vertical-align:middle;border-radius:4px;background:#0b0d12;margin-right:6px">` : "";
+      return img+fb;
+    };
+    let rows = `
+      <tr>
+        <td>스킬 1~7레벨</td>
+        <td colspan="3" style="text-align:left">
+          목표 레벨
+          <select id="lvTarget">
+            ${[1,2,3,4,5,6,7].map(n=>`<option value="${n}" ${sk.lvTarget===n?'selected':''}>${n}</option>`).join('')}
+          </select>
+          <span class="small">(1은 미선택)</span>
+        </td>
+      </tr>`;
+    if(hasMastery){
+      rows += `
+        <tr><td>${sLbl("s1","스킬 1")}</td>
+          <td><label><input type="checkbox" id="s1_m1" ${sk.s1.m1?'checked':''}> 8</label></td>
+          <td><label><input type="checkbox" id="s1_m2" ${sk.s1.m2?'checked':''}> 9</label></td>
+          <td><label><input type="checkbox" id="s1_m3" ${sk.s1.m3?'checked':''}> 10</label></td></tr>
+        <tr><td>${sLbl("s2","스킬 2")}</td>
+          <td><label><input type="checkbox" id="s2_m1" ${sk.s2.m1?'checked':''}> 8</label></td>
+          <td><label><input type="checkbox" id="s2_m2" ${sk.s2.m2?'checked':''}> 9</label></td>
+          <td><label><input type="checkbox" id="s2_m3" ${sk.s2.m3?'checked':''}> 10</label></td></tr>
+        <tr><td>${sLbl("s3","스킬 3")}</td>
+          <td><label><input type="checkbox" id="s3_m1" ${sk.s3.m1?'checked':''}> 8</label></td>
+          <td><label><input type="checkbox" id="s3_m2" ${sk.s3.m2?'checked':''}> 9</label></td>
+          <td><label><input type="checkbox" id="s3_m3" ${sk.s3.m3?'checked':''}> 10</label></td></tr>`;
+    }
+    rightCol = `
+      <table class="tbl">
+        <thead><tr><th style="text-align:left">스킬 옵션</th><th colspan="3">선택</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>`;
   }
-  const rightCol = `
-    <table class="tbl">
-      <thead><tr><th style="text-align:left">스킬 옵션</th><th colspan="3">선택</th></tr></thead>
-      <tbody>${rows}</tbody>
-    </table>`;
 
   html += `<div class="grid2">${leftCol}${rightCol}</div>`;
 
-  /* 모듈: 하단 단독 섹션 */
+  /* 모듈 */
   const mods = (ch.modules||[]).filter(t=>{
     const ov   = costs?.module_override?.[ch.name]?.[t];
     const base = costs?.module_costs?.[t];
     return !!(ov || base);
   });
   if(mods.length){
+    const moState = getModOpt(ch);
     html += `
       <table class="tbl">
         <thead><tr><th style="text-align:left">모듈</th><th>선택</th></tr></thead>
         <tbody>
           ${mods.map(t=>{
-            const lv = mo.types?.[t] ?? 0;
+            const lv = moState.types?.[t] ?? 0;
             return `<tr>
               <td>${t}</td>
               <td>
@@ -521,7 +563,6 @@ function renderDetails(){
 }
 
 /* ---------- 스킬 비용 ---------- */
-/* 1~7 */
 function skillLv1to7CostFor(ch){
   const opt = getSkillOpt(ch);
   const target = Math.max(1, Math.min(7, opt.lvTarget||1));
@@ -537,7 +578,6 @@ function skillLv1to7CostFor(ch){
   }
   return acc;
 }
-/* 마스터리(8/9/10) */
 function skillMasteryCostFor(ch){
   if((ch.rarity||0)<=3) return {};
   const opt = getSkillOpt(ch);
@@ -554,7 +594,7 @@ function skillMasteryCostFor(ch){
   return acc;
 }
 
-/* ---------- 하위 재료 확장(희귀도 임계) ---------- */
+/* ---------- 하위 재료 확장 ---------- */
 function expandMaterial(name, count, thr){
   if(thr<0) return {[name]: count};
   const meta = materials[name]; const r = meta?.rarity ?? 999;
@@ -577,8 +617,6 @@ function injectCosts(ch, stageKey, acc){
   add((costs?.promotion_fee?.[r]?.[k])     || (costs?.promotion_fee?.[r]?.[kKo])   || (costs?.promotion_fee?.[r]?.[kEn]));
   add((costs?.promotion_override?.[ch.name]?.[k]) || (costs?.promotion_override?.[ch.name]?.[kKo]) || (costs?.promotion_override?.[ch.name]?.[kEn]));
 }
-
-/* 레벨업 프리셋 누적 */
 function levelingPresetCost(ch){
   const mo = getModOpt(ch);
   const r = String(ch.rarity ?? "");
@@ -590,13 +628,12 @@ function levelingPresetCost(ch){
   switch(mo.levelPreset){
     case 1: addObj(add("E0max")); break;
     case 2: ["E0max","E1max"].forEach(k=>addObj(add(k))); break;
-    case 3: ["E0max","E1max","E2_60"].forEach(k=>addObj(add(k))); break; // 90 제외
+    case 3: ["E0max","E1max","E2_60"].forEach(k=>addObj(add(k))); break;
     case 4: ["E0max","E1max","E2max"].forEach(k=>addObj(add(k))); break;
     default: ;
   }
   return acc;
 }
-
 function moduleCostFor(ch){
   const mo = getModOpt(ch);
   if(!mo.types) return {};
