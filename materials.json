@@ -10,7 +10,7 @@
     "rarity": 0,
     "type": "exp",
     "icon": "icons/exp.png",
-    "label": { "ko": "EXP", "en": "EXP" },
+    "label": { "ko": "작전기록", "en": "EXP" },
     "craft": []
   },
   "Nucleic Crystal Sinter": {
