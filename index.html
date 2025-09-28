@@ -370,11 +370,12 @@ function renderDetails(){
 function skillCostFor(ch){
   const opt = getSkillOpt(ch);
   const base = costs?.skill_levels || {};
+  const baseR = base?.[String(ch.rarity||"")] || {};              // ★ 성급별 표
   const ov   = costs?.skill_levels_override?.[ch.name] || {};
   const mst  = costs?.skill_mastery?.[ch.name] || {};
   let acc = {};
   const addObj = o=>{ if(!o) return; for(const [n,c] of Object.entries(o)) acc[n]=(acc[n]||0)+c; };
-  const addLv1to7 = ()=>{ for(let lv=2; lv<=7; lv++){ const L=String(lv); addObj(base[L]); addObj(ov[L]); } };
+  const addLv1to7 = ()=>{ for(let lv=2; lv<=7; lv++){ const L=String(lv); addObj(baseR[L]); addObj(ov[L]); } };
   const addM = (sKey, mKey)=> addObj(mst?.[sKey]?.[mKey]);
 
   if(opt.lv7) addLv1to7();
@@ -386,6 +387,7 @@ function skillCostFor(ch){
   });
   return acc;
 }
+
 function renderSkillPreview(ch){
   const box = document.getElementById("skillPreview");
   if(!box) return;
@@ -430,10 +432,19 @@ function injectCosts(ch, stageKey, acc){
   const add = (obj)=>{ if(!obj) return; for(const [k,v] of Object.entries(obj)) acc[k]=(acc[k]||0)+v; };
   const r = String(ch.rarity ?? "");
   const k = stageKey;
-  const kKo = (typeof STAGE_LABELS!=="undefined" && STAGE_LABELS[k]) ? STAGE_LABELS[k] : k; // E1→"1차 정예화" 대응
-  add((costs?.promotion_costs?.[r]?.[k])  || (costs?.promotion_costs?.[r]?.[kKo]));
-  add((costs?.promotion_fee?.[r]?.[k])    || (costs?.promotion_fee?.[r]?.[kKo]));
+  const kKo = (typeof STAGE_LABELS!=="undefined" && STAGE_LABELS[k]) ? STAGE_LABELS[k] : k;
+
+  // prereq(=promotion_costs 역할) 호환
+  add((costs?.promotion_costs?.[r]?.[k])   || (costs?.promotion_costs?.[r]?.[kKo]) ||
+      (costs?.promotion_prereq?.[r]?.[k])  || (costs?.promotion_prereq?.[r]?.[kKo]));
+
+  // 실행 수수료
+  add((costs?.promotion_fee?.[r]?.[k])     || (costs?.promotion_fee?.[r]?.[kKo]));
+
+  // 캐릭터 개별 오버라이드
+  add((costs?.promotion_override?.[ch.name]?.[k]) || (costs?.promotion_override?.[ch.name]?.[kKo]));
 }
+
 
 /* ---------- 장바구니 ---------- */
 function renderBasket(){
@@ -529,3 +540,4 @@ function updateOwned(name, val){
 </script>
 </body>
 </html>
+
