@@ -151,6 +151,7 @@
               <tbody></tbody>
             </table>
           </div>
+          <div class="small" style="margin:6px 0">확보 수량은 이 브라우저의 LocalStorage에 저장됩니다.</div>
         </div>
       </div>
     </details>
@@ -174,8 +175,8 @@ const stageDisp = s => STAGE_LABELS[s] || s;
 
 /* “용문폐 / EXP” 그룹에 포함시킬 추가 항목들 */
 const MISC_NAME_SET = new Set([
-  "모듈 데이터 칩","데이터 리더기","데이터 메모리",
-  "Module Data Block","Data Supplement Stick","Data Crystal",
+  "모듈 데이터 칩","데이터 리더기","데이터 메모리","스킬개론 시리즈",
+  "Module Data Block","Data Supplement Stick","Data Supplement Instrument","Data Crystal",
   "Skill Summary - 1","Skill Summary - 2","Skill Summary - 3"
 ]);
 function isMiscRow(r){
@@ -207,7 +208,7 @@ function saveSkillOpt(){ localStorage.setItem("skillOpt_v2", JSON.stringify(skil
 
 /* 모듈/레벨업 프리셋 + 단계(E1/E2) 포함 옵션 */
 let modOpt = JSON.parse(localStorage.getItem("modOpt_v2") || "{}");
-/* 구조 예: { "SilverAsh": { levelPreset:0, types:{ "COR-Y":0 }, stages:{E1:true,E2:true} } } */
+/* 구조: { 캐명:{ levelPreset:0, types:{ "COR-Y":0 }, stages:{E1:true,E2:true} } } */
 function getModOpt(ch){
   const k = ch.name;
   if(!modOpt[k]) modOpt[k] = { levelPreset: 0, types:{}, stages:{E1:true,E2:true} };
@@ -218,8 +219,7 @@ function getModOpt(ch){
 }
 function saveModOpt(){ localStorage.setItem("modOpt_v2", JSON.stringify(modOpt)); }
 
-/* ---------- 캐시/유틸 ---------- */
-const expandCache = new Map();
+/* ---------- 유틸 ---------- */
 const $ = s => document.querySelector(s);
 function disp(name){ return (materials[name]?.label?.ko) || name; }
 function dispChar(ch){ return (ch.label?.ko) || ch.name; }
@@ -248,7 +248,6 @@ async function fetchJSON(url, fb={}){ try{ const r=await fetch(url); if(!r.ok) t
 
 /* ---------- 이벤트 ---------- */
 function bindEvents(){
-  // 상단 컨트롤
   $("#expandTo").addEventListener("change", e=>{ expandTo = parseInt(e.target.value,10); renderBasket(); });
   $("#sumSort").addEventListener("change", e=>{ sumSort = e.target.value; renderBasket(); });
   $("#gallerySort").addEventListener("change", e=>{ sortBy = e.target.value; renderGallery(); });
@@ -262,15 +261,11 @@ function bindEvents(){
     clearTimeout(qTimer);
     qTimer=setTimeout(()=>{ query = e.target.value.trim().toLowerCase(); page=1; renderGallery(); },150);
   });
-
-  // 페이지네이션
   $("#prevPage").addEventListener("click", ()=>{ if(page>1){ page--; renderGallery(); } });
   $("#nextPage").addEventListener("click", ()=>{
     const total = Math.max(1, Math.ceil(filteredCount/pageSize));
     if(page<total){ page++; renderGallery(); }
   });
-
-  // 버튼
   $("#clearSel").addEventListener("click", ()=>{ selected = []; lastDetail = -1; renderGallery(); renderDetails(); renderBasket(); });
   $("#clearOwn").addEventListener("click", ()=>{ owned = {}; localStorage.setItem("owned_v1", JSON.stringify(owned)); renderBasket(); });
 }
@@ -355,7 +350,6 @@ function renderDetails(){
   const ch = data[lastDetail];
   const mo = getModOpt(ch);
 
-  // 제목 + E2 배경
   let html = `<h2>${dispChar(ch)}</h2>`;
 
   // 단계 포함 토글 + 단계별 표(좌우 배치)
@@ -384,10 +378,7 @@ function renderDetails(){
         </tbody>
       </table>`;
   }).join("");
-
-  if(stageTables){
-    html += `<div class="grid2">${stageTables}</div>`;
-  }
+  if(stageTables){ html += `<div class="grid2">${stageTables}</div>`; }
 
   // 레벨업 프리셋(누적 포함)
   const lp = mo.levelPreset||0; // 0=선택안함, 1:E0max, 2:E1max, 3:E2_60, 4:E2max
@@ -399,17 +390,17 @@ function renderDetails(){
           <td>선택</td>
           <td colspan="4" style="text-align:left">
             <label><input type="radio" name="lvPreset" value="0" ${lp===0?'checked':''}> 선택 안 함</label>
-            <label style="margin-left:12px"><input type="radio" name="lvPreset" value="1" ${lp===1?'checked':''}> ~0정예 최대 레벨</label>
-            <label style="margin-left:12px"><input type="radio" name="lvPreset" value="2" ${lp===2?'checked':''}> ~1정예 최대 레벨</label>
-            <label style="margin-left:12px"><input type="radio" name="lvPreset" value="3" ${lp===3?'checked':''}> ~2정예 60레벨</label>
-            <label style="margin-left:12px"><input type="radio" name="lvPreset" value="4" ${lp===4?'checked':''}> ~2정예 최대 레벨</label>
+            <label style="margin-left:12px"><input type="radio" name="lvPreset" value="1" ${lp===1?'checked':''}> ~0차 정예화 + 최대 레벨</label>
+            <label style="margin-left:12px"><input type="radio" name="lvPreset" value="2" ${lp===2?'checked':''}> ~1차 정예화 + 최대 레벨</label>
+            <label style="margin-left:12px"><input type="radio" name="lvPreset" value="3" ${lp===3?'checked':''}> ~2차 정예화 + 모듈 최소 레벨</label>
+            <label style="margin-left:12px"><input type="radio" name="lvPreset" value="4" ${lp===4?'checked':''}> ~2차 정예화 + 최대 레벨</label>
           </td>
         </tr>
       </tbody>
     </table>
   `;
 
-  // 스킬 마스터리 + 모듈 드롭다운을 좌우 배치
+  // 스킬(마스터리) + 모듈 드롭다운 좌우 배치
   const opt = getSkillOpt(ch);
   const showMastery = (ch.rarity||0) > 3;
   let leftCol = "";
@@ -467,32 +458,24 @@ function renderDetails(){
         </tbody>
       </table>`;
   }
+  if(leftCol || rightCol){ html += `<div class="grid2">${leftCol}${rightCol}</div>`; }
 
-  if(leftCol || rightCol){
-    html += `<div class="grid2">${leftCol}${rightCol}</div>`;
-  }
-
-  // 출력
   d.innerHTML = `<div class="detailWrap"><div class="bgE2" id="bgE2"></div><div class="detailContent">${html}</div></div>`;
   const bg = d.querySelector("#bgE2"); if(ch.imageE2){ bg.style.backgroundImage = `url('${ch.imageE2}')`; requestAnimationFrame(()=> bg.classList.add("show")); }
 
-  // 이벤트 바인딩
-  // 단계 포함
+  // 이벤트
   d.querySelectorAll('input[data-stage]').forEach(el=>{
     el.onchange = ()=>{ mo.stages[el.dataset.stage] = el.checked; saveModOpt(); renderBasket(); };
   });
-  // 레벨업 프리셋
   d.querySelectorAll('input[name="lvPreset"]').forEach(el=>{
     el.onchange = ()=>{ mo.levelPreset = parseInt(el.value,10)||0; saveModOpt(); renderBasket(); };
   });
-  // 스킬 마스터리
   ["s1","s2","s3"].forEach(k=>{
     ["m1","m2","m3"].forEach(t=>{
       const el = d.querySelector(`#${k}_${t}`);
       if(el) el.onchange = ()=>{ const o=getSkillOpt(ch)[k]; o[t] = el.checked; saveSkillOpt(); renderBasket(); };
     });
   });
-  // 모듈 셀렉트
   d.querySelectorAll('.modSelect').forEach(el=>{
     el.onchange = ()=>{ mo.types[el.dataset.mod] = parseInt(el.value,10)||0; saveModOpt(); renderBasket(); };
   });
@@ -500,7 +483,7 @@ function renderDetails(){
 
 /* ---------- 스킬 비용(마스터리만) ---------- */
 function skillCostFor(ch){
-  if((ch.rarity||0)<=3) return {}; // 3성 이하는 마스터리 불가
+  if((ch.rarity||0)<=3) return {};
   const opt = getSkillOpt(ch);
   const mst  = costs?.skill_mastery?.[ch.name] || {};
   let acc = {};
@@ -515,7 +498,7 @@ function skillCostFor(ch){
   return acc;
 }
 
-/* ---------- 확장(희귀도 임계) ---------- */
+/* ---------- 하위 재료 확장(희귀도 임계) ---------- */
 function expandMaterial(name, count, thr){
   if(thr<0) return {[name]: count};
   const meta = materials[name]; const r = meta?.rarity ?? 999;
@@ -535,15 +518,15 @@ function injectCosts(ch, stageKey, acc){
   const kEn = STAGE_REVERSE[k] || k;
 
   add((costs?.promotion_costs?.[r]?.[k])   || (costs?.promotion_costs?.[r]?.[kKo]) || (costs?.promotion_costs?.[r]?.[kEn]));
+  // promotion_prereq 제거
   add((costs?.promotion_fee?.[r]?.[k])     || (costs?.promotion_fee?.[r]?.[kKo])   || (costs?.promotion_fee?.[r]?.[kEn]));
   add((costs?.promotion_override?.[ch.name]?.[k]) || (costs?.promotion_override?.[ch.name]?.[kKo]) || (costs?.promotion_override?.[ch.name]?.[kEn]));
 }
 
 /* 레벨업 프리셋 누적 계산
-   costs.json 기대 구조:
+   costs.json:
    "leveling": {
-     "3": { "E0max": {LMD,EXP}, "E1max": {...}, "E2_60": {...}, "E2max": {...} },
-     ...
+     "3": { "E0max": {...}, "E1max": {...}, "E2_60": {...}, "E2max": {...} }, ...
    } */
 function levelingPresetCost(ch){
   const mo = getModOpt(ch);
@@ -556,9 +539,9 @@ function levelingPresetCost(ch){
   switch(mo.levelPreset){
     case 1: addObj(add("E0max")); break;
     case 2: ["E0max","E1max"].forEach(k=>addObj(add(k))); break;
-    case 3: ["E0max","E1max","E2_60"].forEach(k=>addObj(add(k))); break;
+    case 3: ["E0max","E1max","E2_60"].forEach(k=>addObj(add(k))); break; // 90 제외
     case 4: ["E0max","E1max","E2max"].forEach(k=>addObj(add(k))); break;
-    default: /* 선택 안 함 */ ;
+    default: ;
   }
   return acc;
 }
@@ -606,7 +589,7 @@ function renderBasket(){
     sumInto(sum, moduleCostFor(ch));
   });
 
-  // rows 구성
+  // rows
   let rows = Object.keys(sum).map(name=>{
     const meta = materials[name] || {};
     return {
@@ -659,4 +642,3 @@ function updateOwned(name, val){
 </script>
 </body>
 </html>
-
