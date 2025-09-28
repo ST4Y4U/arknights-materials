@@ -161,6 +161,30 @@ let query = "";
 let groupBy = "rarity";
 let sortBy = "release";
 let sortDir = "asc";
+let extras = {}; // 체크박스 추가분(장바구니에 합산)
+
+function calcPrice() {
+  extras = {};
+  const cbs = document.getElementsByName('price');
+  for (let i = 0; i < cbs.length; i++) {
+    const cb = cbs[i];
+    if (cb.checked) {
+      const spanId = cb.id.replace('cb','price');
+      const txt = (document.getElementById(spanId)?.textContent || "").trim();
+      // "재료:수량" 또는 "수량"(수량만 쓰면 LMD로 처리)
+      let mat = "LMD", num = txt;
+      if (txt.includes(":")) [mat, num] = txt.split(":");
+      const count = parseInt(num, 10) || 0;
+      mat = mat.trim();
+      if (count > 0) extras[mat] = (extras[mat] || 0) + count;
+    }
+  }
+  // 있으면 미리보기로 총합 텍스트도 찍어줌(선택)
+  const r = document.getElementById('result');
+  if (r) r.textContent = Object.entries(extras).map(([k,v])=>`${k}:${v}`).join(", ");
+  renderBasket(); // 장바구니 재계산
+}
+
 
 /* 스킬 체크 옵션 v2: { char: { lv7:bool, s1:{m1,m2,m3}, s2:{}, s3:{} } } */
 let skillOpt = JSON.parse(localStorage.getItem("skillOpt_v2") || "{}");
@@ -447,7 +471,11 @@ function injectCosts(ch, stageKey, acc){
   add((costs?.promotion_override?.[ch.name]?.[k])  || (costs?.promotion_override?.[ch.name]?.[kKo]) || (costs?.promotion_override?.[ch.name]?.[kEn]));
 }
 
-
+<div id="extraBox" style="padding:8px 12px">
+  <label><input type="checkbox" id="cb1" name="price" onclick="calcPrice()">
+    <span id="price1">LMD:10000</span></label><br>
+  <label><input type="checkbox" id="cb2" name="price" onclick="calcPrice()">
+    <span id="price2">EXP:5000</span></label><br>
 
 /* ---------- 장바구니 ---------- */
 function renderBasket(){
@@ -474,7 +502,8 @@ function renderBasket(){
     // 스킬 옵션 합산
     sumInto(sum, skillCostFor(ch));
   });
-
+  sumInto(sum, extras); // ← 친구 체크박스 총합 반영
+  
   const rows = Object.keys(sum).map(name=>{
     const meta = materials[name] || {};
     return {
@@ -543,5 +572,6 @@ function updateOwned(name, val){
 </script>
 </body>
 </html>
+
 
 
