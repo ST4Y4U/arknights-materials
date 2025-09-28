@@ -105,20 +105,15 @@
     </section>
   </main>
 
-  <!-- ▼ 추가 체크박스(친구 코드 방식) : 필요하면 항목 더 추가 -->
+  <!-- 친구 체크박스(선택사항). 필요 없으면 이 섹션 삭제해도 됨 -->
   <section id="extraBox" style="padding:8px 12px">
     <strong class="small">추가 옵션</strong><br>
     <label><input type="checkbox" id="cb1" name="price" onclick="calcPrice()">
       <span id="price1">LMD:10000</span></label><br>
     <label><input type="checkbox" id="cb2" name="price" onclick="calcPrice()">
       <span id="price2">EXP:5000</span></label><br>
-    <!-- 예시
-    <label><input type="checkbox" id="cb3" name="price" onclick="calcPrice()">
-      <span id="price3">Orirock Concentration:3</span></label><br>
-    -->
     <div id="result" class="small"></div>
   </section>
-  <!-- ▲ 추가 체크박스 끝 -->
 
   <section id="basketWrap">
     <details open>
@@ -177,8 +172,8 @@ let groupBy = "rarity";
 let sortBy = "release";
 let sortDir = "asc";
 
-/* 추가 체크박스 누적(친구 코드 통합) */
-let extras = {}; // { "LMD":10000, "Orirock Concentration":2, ... }
+/* 친구 체크박스 합산(선택) */
+let extras = {};
 function calcPrice() {
   extras = {};
   const cbs = document.getElementsByName('price');
@@ -198,7 +193,7 @@ function calcPrice() {
   renderBasket();
 }
 
-/* 스킬 체크 옵션 v2: { char: { lv7:bool, s1:{m1,m2,m3}, s2:{}, s3:{} } } */
+/* 스킬 옵션 v2 */
 let skillOpt = JSON.parse(localStorage.getItem("skillOpt_v2") || "{}");
 function getSkillOpt(ch){
   const k = ch.name;
@@ -207,8 +202,19 @@ function getSkillOpt(ch){
 }
 function saveSkillOpt(){ localStorage.setItem("skillOpt_v2", JSON.stringify(skillOpt)); }
 
+/* 모듈/레벨업 옵션 */
+let modOpt = JSON.parse(localStorage.getItem("modOpt_v1") || "{}");
+// { "SilverAsh": { preE1:false, types:{ X:false, Y:true } } }
+function getModOpt(ch){
+  const k = ch.name;
+  if(!modOpt[k]) modOpt[k] = { preE1:false, types:{} };
+  (ch.modules||[]).forEach(t=>{ if(typeof modOpt[k].types[t]==="undefined") modOpt[k].types[t]=false; });
+  return modOpt[k];
+}
+function saveModOpt(){ localStorage.setItem("modOpt_v1", JSON.stringify(modOpt)); }
+
 /* ---------- 캐시 ---------- */
-const expandCache = new Map(); // 재료 1개당 분해표 캐시
+const expandCache = new Map();
 
 /* ---------- 유틸 ---------- */
 const $ = sel => document.querySelector(sel);
@@ -256,7 +262,6 @@ function bindEvents(){
   $("#clearSel").addEventListener("click", ()=>{ selected = []; lastDetail = -1; renderGallery(); renderDetails(); renderBasket(); });
   $("#clearOwn").addEventListener("click", ()=>{ owned = {}; localStorage.setItem("owned_v1", JSON.stringify(owned)); renderBasket(); });
 
-  // extra 체크박스가 변경되면 장바구니 갱신
   document.addEventListener('change', e=>{
     if(e.target.matches('input[name="price"]')) calcPrice();
   });
@@ -304,7 +309,6 @@ function renderGallery(){
   };
   items.sort(cmpChar);
 
-  // 청크 렌더
   let i=0, chunk=36;
   (function pump(){
     const frag = document.createDocumentFragment();
@@ -338,7 +342,6 @@ function renderDetails(){
   if(lastDetail===-1 || !selected.includes(lastDetail)) lastDetail = selected[selected.length-1];
   const ch = data[lastDetail];
 
-  // 본문
   let inner = `<h2>${dispChar(ch)}</h2>`;
   if(ch.image) inner += `<div style="margin:6px 0 10px">${imgTag(ch.image, ch.name)}</div>`;
   for(const [stage, mats] of Object.entries(ch.stages||{})){
@@ -347,7 +350,7 @@ function renderDetails(){
     inner += `</ul>`;
   }
 
-  // 스킬 옵션: 1~7 공통, 마스터리 스킬별
+  // 스킬 옵션
   const opt = getSkillOpt(ch);
   const row = (key,label)=>{
     const o = opt[key];
@@ -369,7 +372,25 @@ function renderDetails(){
   </div>
   <div class="skPrev" id="skillPreview"></div>`;
 
-  // 래핑 + E2 배경
+  // 레벨업/모듈 옵션
+  const mo = getModOpt(ch);
+  inner += `<h3>레벨업 옵션</h3>
+  <div class="skOpts">
+    <div class="skRow">
+      <label><input type="checkbox" id="preE1_cb" ${mo.preE1?'checked':''}> 0→E1-1 레벨업 포함</label>
+    </div>
+  </div>`;
+
+  if ((ch.modules||[]).length){
+    inner += `<h3>모듈</h3><div class="skOpts">` +
+      (ch.modules||[]).map(t=>{
+        const on = mo.types?.[t] ? 'checked' : '';
+        return `<div class="skRow">
+          <label><input type="checkbox" class="modType" data-mod="${t}" ${on}> 모듈 ${t}</label>
+        </div>`;
+      }).join("") + `</div>`;
+  }
+
   d.innerHTML = `<div class="detailWrap">
                    <div class="bgE2" id="bgE2"></div>
                    <div class="detailContent">${inner}</div>
@@ -377,7 +398,7 @@ function renderDetails(){
   const bg = d.querySelector("#bgE2");
   if(ch.imageE2){ bg.style.backgroundImage = `url('${ch.imageE2}')`; requestAnimationFrame(()=> bg.classList.add("show")); }
 
-  // 스킬 체크 이벤트 + 미리보기 최초 렌더
+  // 이벤트
   const lv7box = d.querySelector("#lv7_all");
   if(lv7box) lv7box.onchange = ()=>{ opt.lv7 = lv7box.checked; saveSkillOpt(); renderSkillPreview(ch); renderBasket(); };
   ["s1","s2","s3"].forEach(k=>{
@@ -386,6 +407,12 @@ function renderDetails(){
       if(el) el.onchange = ()=>{ opt[k][t] = el.checked; saveSkillOpt(); renderSkillPreview(ch); renderBasket(); };
     });
   });
+  const pre = d.querySelector("#preE1_cb");
+  if(pre) pre.onchange = ()=>{ mo.preE1 = pre.checked; saveModOpt(); renderBasket(); };
+  d.querySelectorAll(".modType").forEach(el=>{
+    el.onchange = ()=>{ mo.types[el.dataset.mod] = el.checked; saveModOpt(); renderBasket(); };
+  });
+
   renderSkillPreview(ch);
 }
 
@@ -393,7 +420,7 @@ function renderDetails(){
 function skillCostFor(ch){
   const opt = getSkillOpt(ch);
   const base = costs?.skill_levels || {};
-  const baseR = base?.[String(ch.rarity||"")] || {};   // 성급별 1~7 표
+  const baseR = base?.[String(ch.rarity||"")] || {};
   const ov   = costs?.skill_levels_override?.[ch.name] || {};
   const mst  = costs?.skill_mastery?.[ch.name] || {};
   let acc = {};
@@ -434,7 +461,7 @@ function renderSkillPreview(ch){
   box.innerHTML = mk("스킬 재료 합계", main) + mk("통화 / EXP 합계", misc);
 }
 
-/* ---------- 재귀 확장(캐시) ---------- */
+/* ---------- 재귀 확장 ---------- */
 function expandMaterial(name, count){
   if(!expand) return {[name]: count};
   const meta = materials[name], craft = meta?.craft || [];
@@ -448,7 +475,7 @@ function expandMaterial(name, count){
   return acc;
 }
 
-/* ---------- 정예화 비용 주입(promotion_* + 오버라이드, 키 호환) ---------- */
+/* ---------- 정예화 비용 주입(키 호환) ---------- */
 function injectCosts(ch, stageKey, acc){
   const add = (obj)=>{ if(!obj) return; for(const [k,v] of Object.entries(obj)) acc[k]=(acc[k]||0)+v; };
   const r = String(ch.rarity ?? "");
@@ -460,6 +487,31 @@ function injectCosts(ch, stageKey, acc){
   add((costs?.promotion_prereq?.[r]?.[k])  || (costs?.promotion_prereq?.[r]?.[kKo])|| (costs?.promotion_prereq?.[r]?.[kEn]));
   add((costs?.promotion_fee?.[r]?.[k])     || (costs?.promotion_fee?.[r]?.[kKo])   || (costs?.promotion_fee?.[r]?.[kEn]));
   add((costs?.promotion_override?.[ch.name]?.[k]) || (costs?.promotion_override?.[ch.name]?.[kKo]) || (costs?.promotion_override?.[ch.name]?.[kEn]));
+}
+
+/* ---------- 0→E1-1 레벨업, 모듈 ---------- */
+function levelupPreE1Cost(ch){
+  const mo = getModOpt(ch);
+  if(!mo.preE1) return {};
+  const r = String(ch.rarity ?? "");
+  const obj = costs?.promotion_prereq?.[r]?.E0;
+  if(!obj) return {};
+  const acc={}; for(const [k,v] of Object.entries(obj)) acc[k]=(acc[k]||0)+v;
+  return acc;
+}
+function moduleCostFor(ch){
+  const mo = getModOpt(ch);
+  if(!mo.types) return {};
+  let acc = {};
+  for(const [t,on] of Object.entries(mo.types)){
+    if(!on) continue;
+    const ov   = costs?.module_override?.[ch.name]?.[t]?.S1;
+    const base = costs?.module_costs?.[t]?.S1;
+    const pick = ov || base;
+    if(!pick) continue;
+    for(const [k,v] of Object.entries(pick)) acc[k]=(acc[k]||0)+v;
+  }
+  return acc;
 }
 
 /* ---------- 장바구니 ---------- */
@@ -485,9 +537,11 @@ function renderBasket(){
       injectCosts(ch, stageKey, sum);
     }
     sumInto(sum, skillCostFor(ch));
+    sumInto(sum, levelupPreE1Cost(ch));
+    sumInto(sum, moduleCostFor(ch));
   });
 
-  // 친구 체크박스 추가분 합산
+  // 추가 체크박스 합산
   sumInto(sum, extras);
 
   const rows = Object.keys(sum).map(name=>{
