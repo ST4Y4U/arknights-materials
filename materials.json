@@ -14,7 +14,7 @@
     "craft": []
   },
   "Nucleic Crystal Sinter": {
-    "rarity": 4,
+    "rarity": 5,
     "type": "material",
     "icon": "icons/nucleic_crystal_sinter.png",
     "label": { "ko": "핵결정체 소결물" },
@@ -25,7 +25,7 @@
     ]
   },
   "Polymerization Preparation": {
-    "rarity": 4,
+    "rarity": 5,
     "type": "material",
     "icon": "icons/polymerization_preparation.png",
     "label": { "ko": "중합제" },
@@ -36,7 +36,7 @@
     ]
   },
   "Crystalline Electronic Unit": {
-    "rarity": 4,
+    "rarity": 5,
     "type": "material",
     "icon": "icons/crystalline_electronic_unit.png",
     "label": { "ko": "결정 전자 장치" },
@@ -47,7 +47,7 @@
     ]
   },
   "Bipolar Nanoflake": {
-    "rarity": 4,
+    "rarity": 5,
     "type": "material",
     "icon": "icons/bipolar_nanoflake.png",
     "label": { "ko": "바이폴라 나노플레이크 칩" },
@@ -57,7 +57,7 @@
     ]
   },
   "D32 Steel": {
-    "rarity": 4,
+    "rarity": 5,
     "type": "material",
     "icon": "icons/d32_steel.png",
     "label": { "ko": "D32강" },
@@ -68,7 +68,7 @@
     ]
   },
   "Rephasic Enantiomer": {
-    "rarity": 4,
+    "rarity": 5,
     "type": "material",
     "icon": "icons/rephasic_enantiomer.png",
     "label": { "ko": "중위상 엔안티오머" },
@@ -79,7 +79,7 @@
     ]
   },
   "Chiral Refractor": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/chiral_refractor.png",
     "label": { "ko": "카이랄 굴광체" },
@@ -90,7 +90,7 @@
     ]
   },   
   "Crystalline Circuit": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/crystalline_circuit.png",
     "label": { "ko": "결정 회로" },
@@ -101,7 +101,7 @@
     ]
   },
   "Cutting Fluid Solution": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/cutting_fluid_solution.png",
     "label": { "ko": "절삭유 원액" },
@@ -112,7 +112,7 @@
     ]
   },
   "Cyclicene Prefab": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/cyclicene_prefab.png",
     "label": { "ko": "고리탄화수소 프리폼" },
@@ -123,7 +123,7 @@
     ]
   },
   "Grindstone Pentahydrate": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/grindstone_pentahydrate.png",
     "label": { "ko": "고급연마석" },
@@ -134,7 +134,7 @@
     ]
   },
   "Incandescent Alloy Block": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/incandescent_alloy_block.png",
     "label": { "ko": "열합금 팩" },
@@ -145,7 +145,7 @@
     ]
   },
   "Keton Colloid": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/keton_colloid.png",
     "label": { "ko": "아케톤 팩" },
@@ -156,7 +156,7 @@
     ]
   },
   "Manganese Trihydrate": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/manganese_trihydrate.png",
     "label": { "ko": "망간 중합체" },
@@ -167,7 +167,7 @@
     ]
   },
   "Optimized Device": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/optimized_device.png",
     "label": { "ko": "개량 장치" },
@@ -178,7 +178,7 @@
     ]
   },
   "Orirock Concentration": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/orirock_concentration.png",
     "label": { "ko": "정제 원암" },
@@ -187,7 +187,7 @@
     ]
   },
   "Oriron Block": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/orirock_concentration.png",
     "label": { "ko": "이철 팩" },
@@ -198,7 +198,7 @@
     ]
   },
   "Polyester Lump": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/polyester_lump.png",
     "label": { "ko": "폴리에스테르 팩" },
@@ -209,7 +209,7 @@
     ]
   },
   "Polymerized Gel": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/polymerized_gel.png",
     "label": { "ko": "중합젤" },
@@ -220,7 +220,7 @@
     ]
   },
   "Refined Solvent": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/refined_solvent.png",
     "label": { "ko": "정제된 용제" },
@@ -231,7 +231,7 @@
     ]
   },
   "RMA70-24": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/rma70-24.png",
     "label": { "ko": "RMA70-24" },
@@ -242,7 +242,7 @@
     ]
   },
   "Solidified Fiber Board": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/solidified_fiber_board.png",
     "label": { "ko": "경화 섬유판" },
@@ -253,7 +253,7 @@
     ]
   },
   "Sugar Lump": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/sugar_lump.png",
     "label": { "ko": "포도당 팩" },
@@ -264,7 +264,7 @@
     ]
   },
   "Transmuted Salt Agglomerate": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/transmuted_salt_agglomerate.png",
     "label": { "ko": "합성 소금 팩" },
@@ -275,7 +275,7 @@
     ]
   },
   "White Horse Kohl": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/white_horse_kohl.png",
     "label": { "ko": "화이트 호스 콜" },
@@ -286,14 +286,14 @@
     ]
   },
   "Aggregate Cyclicene": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/aggregate_cyclicene.png",
     "label": { "ko": "고리탄화수소 응집질" },
     "craft": []
   },
   "Aketon": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/aggregate_cyclicene.png",
     "label": { "ko": "아케톤 응집체 번들" },
@@ -302,56 +302,56 @@
     ]
   },
   "Coagulating Gel": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/coagulating_gel.png",
     "label": { "ko": "젤" },
     "craft": []
   },
   "Coagulative Nodule": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/coagulative_nodule.png",
     "label": { "ko": "유사 응결핵" },
     "craft": []
   },
   "Compound Cutting Fluid": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/compound_cutting_fluid.png",
     "label": { "ko": "중합 절삭유" },
     "craft": []
   },
   "Crystalline Component": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/crystalline_component.png",
     "label": { "ko": "결정 부품" },
     "craft": []
   },
   "Fuscous Fiber": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/fuscous_fiber.png",
     "label": { "ko": "퓨신 섬유" },
     "craft": []
   },
   "Grindstone": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/grindstone.png",
     "label": { "ko": "연마석" },
     "craft": []
   },
   "Incandescent Alloy": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/incandescent_alloy.png",
     "label": { "ko": "열합금" },
     "craft": []
   },
   "Integrated Device": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/integrated_device.png",
     "label": { "ko": "리뉴얼 장치" },
@@ -360,21 +360,21 @@
     ]
   },
   "Loxic Kohl": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/loxic_kohl.png",
     "label": { "ko": "로식 콜" },
     "craft": []
   },
   "Manganese Ore": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/manganese_ore.png",
     "label": { "ko": "망간 광석" },
     "craft": []
   },
   "Orirock Cluster": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/orirock_cluster.png",
     "label": { "ko": "원암 큐브 번들" },
@@ -383,7 +383,7 @@
     ]
   },
   "Oriron Cluster": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/oriron_cluster.png",
     "label": { "ko": "이철 번들" },
@@ -392,7 +392,7 @@
     ]
   },
   "Polyester Pack": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/polyester_pack.png",
     "label": { "ko": "폴리에스테르 번들" },
@@ -401,21 +401,21 @@
     ]
   },
   "RMA70-12": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/rma70-12.png",
     "label": { "ko": "RMA70-12" },
     "craft": []
   },
   "Semi-Synthetic Solvent": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/semi-synthetic_solvent.png",
     "label": { "ko": "반합성 용제" },
     "craft": []
   },
   "Sugar Pack": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/sugar_pack.png",
     "label": { "ko": "포도당 번들" },
@@ -424,14 +424,14 @@
     ]
   },
   "Transmuted Salt": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/transmuted_salt.png",
     "label": { "ko": "합성 소금 번들" },
     "craft": []
   },
   "Device": {
-    "rarity": 1,
+    "rarity": 2,
     "type": "material",
     "icon": "icons/device.png",
     "label": { "ko": "장치" },
@@ -440,7 +440,7 @@
     ]
   },
   "Orirock Cube": {
-    "rarity": 1,
+    "rarity": 2,
     "type": "material",
     "icon": "icons/orirock_cube.png",
     "label": { "ko": "원암 큐브" },
@@ -449,7 +449,7 @@
     ]
   },
   "Oriron": {
-    "rarity": 1,
+    "rarity": 2,
     "type": "material",
     "icon": "icons/oriron.png",
     "label": { "ko": "이철" },
@@ -458,7 +458,7 @@
     ]
   },
   "Polyester": {
-    "rarity": 1,
+    "rarity": 2,
     "type": "material",
     "icon": "icons/polyester.png",
     "label": { "ko": "폴리에스테르" },
@@ -467,7 +467,7 @@
     ]
   },
   "Polyketon": {
-    "rarity": 1,
+    "rarity": 2,
     "type": "material",
     "icon": "icons/polyketon.png",
     "label": { "ko": "아케톤 응집체" },
@@ -476,7 +476,7 @@
     ]
   },
   "Sugar": {
-    "rarity": 1,
+    "rarity": 2,
     "type": "material",
     "icon": "icons/sugar.png",
     "label": { "ko": "포도당" },
@@ -485,49 +485,49 @@
     ]
   },
   "Damaged Device": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/damaged_device.png",
     "label": { "ko": "파손된 장치" },
     "craft": []
   },
   "Diketon": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/diketon.png",
     "label": { "ko": "디케톤" },
     "craft": []
   },
   "Ester": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/ester.png",
     "label": { "ko": "에스테르 원료" },
     "craft": []
   },
   "Orirock": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/orirock.png",
     "label": { "ko": "원암" },
     "craft": []
   },
   "Oriron Shard": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/oriron_shard.png",
     "label": { "ko": "이철 조각" },
     "craft": []
   },
   "Sugar Substitute": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/sugar_substitute.png",
     "label": { "ko": "대체당" },
     "craft": []
   },
   "Skill Summary - 3": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/skill_summary3.png",
     "label": { "ko": "스킬개론 제3권" },
@@ -536,7 +536,7 @@
     ]
   },
   "Skill Summary - 2": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/skill_summary2.png",
     "label": { "ko": "스킬개론 제2권" },
@@ -545,126 +545,126 @@
     ]
   },
   "Skill Summary - 1": {
-    "rarity": 1,
+    "rarity": 2,
     "type": "material",
     "icon": "icons/skill_summary1.png",
     "label": { "ko": "스킬개론 제1권" },
     "craft": []
   },
   "Caster Chip": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/caster_chip.png",
     "label": { "ko": "캐스터 칩" },
     "craft": []
   },
   "Defender Chip": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/defender_chip.png",
     "label": { "ko": "디펜더 칩" },
     "craft": []
   },
   "Guard Chip": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/guard_chip.png",
     "label": { "ko": "가드 칩" },
     "craft": []
   },
   "Medic Chip": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/medic_chip.png",
     "label": { "ko": "메딕 칩" },
     "craft": []
   },
   "Sniper Chip": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/sniper_chip.png",
     "label": { "ko": "스나이퍼 칩" },
     "craft": []
   },
   "Specialist Chip": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/specialist_chip.png",
     "label": { "ko": "스페셜리스트 칩" },
     "craft": []
   },
   "Supporter Chip": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/supporter_chip.png",
     "label": { "ko": "서포터 칩" },
     "craft": []
   },
   "Vanguard Chip": {
-    "rarity": 2,
+    "rarity": 3,
     "type": "material",
     "icon": "icons/vanguard_chip.png",
     "label": { "ko": "뱅가드 칩" },
     "craft": []
   },
   "Caster Chip Pack": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/caster_chip_pack.png",
     "label": { "ko": "캐스터 칩셋" },
     "craft": []
   },
   "Defender Chip Pack": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/defender_chip_pack.png",
     "label": { "ko": "디펜더 칩셋" },
     "craft": []
   },
   "Guard Chip Pack": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/guard_chip_pack.png",
     "label": { "ko": "가드 칩셋" },
     "craft": []
   },
   "Medic Chip Pack": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/medic_chip_pack.png",
     "label": { "ko": "메딕 칩셋" },
     "craft": []
   },
   "Sniper Chip Pack": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/sniper_chip_pack.png",
     "label": { "ko": "스나이퍼 칩셋" },
     "craft": []
   },
   "Specialist Chip Pack": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/specialist_chip_pack.png",
     "label": { "ko": "스페셜리스트 칩셋" },
     "craft": []
   },
   "Supporter Chip Pack": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/supporter_chip_pack.png",
     "label": { "ko": "서포터 칩셋" },
     "craft": []
   },
   "Vanguard Chip Pack": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/vanguard_dualchip.png",
     "label": { "ko": "뱅가드 칩셋" },
     "craft": []
   },
   "Caster Dualchip": {
-    "rarity": 3,
+    "rarity": 5,
     "type": "material",
     "icon": "icons/caster_dualchip.png",
     "label": { "ko": "캐스터 듀얼칩" },
@@ -674,7 +674,7 @@
     ]
   },
   "Defender Dualchip": {
-    "rarity": 3,
+    "rarity": 5,
     "type": "material",
     "icon": "icons/defender_dualchip.png",
     "label": { "ko": "디펜더 듀얼칩" },
@@ -684,7 +684,7 @@
     ]
   },
   "Guard Dualchip": {
-    "rarity": 3,
+    "rarity": 5,
     "type": "material",
     "icon": "icons/guard_dualchip.png",
     "label": { "ko": "가드 듀얼칩" },
@@ -694,7 +694,7 @@
     ]
   },
   "Medic Dualchip": {
-    "rarity": 3,
+    "rarity": 5,
     "type": "material",
     "icon": "icons/medic_dualchip.png",
     "label": { "ko": "메딕 듀얼칩" },
@@ -704,7 +704,7 @@
     ]
   },
   "Sniper Dualchip": {
-    "rarity": 3,
+    "rarity": 5,
     "type": "material",
     "icon": "icons/sniper_dualchip.png",
     "label": { "ko": "스나이퍼 듀얼칩" },
@@ -714,7 +714,7 @@
     ]
   },
   "Specialist Dualchip": {
-    "rarity": 3,
+    "rarity": 5,
     "type": "material",
     "icon": "icons/specialist_dualchip.png",
     "label": { "ko": "스페셜리스트 듀얼칩" },
@@ -724,7 +724,7 @@
     ]
   },
   "Supporter Dualchip": {
-    "rarity": 3,
+    "rarity": 5,
     "type": "material",
     "icon": "icons/supporter_dualchip.png",
     "label": { "ko": "서포터 듀얼칩" },
@@ -734,7 +734,7 @@
     ]
   },
   "Vanguard Dualchip": {
-    "rarity": 3,
+    "rarity": 5,
     "type": "material",
     "icon": "icons/vanguard_dualchip.png",
     "label": { "ko": "뱅가드 듀얼칩" },
@@ -744,10 +744,31 @@
     ]
   },
   "Chip Catalyst": {
-    "rarity": 3,
+    "rarity": 4,
     "type": "material",
     "icon": "icons/chip_catalyst.png",
     "label": { "ko": "칩 첨가제" },
+    "craft": []
+  },
+  "Data Supplement Stick": {
+    "rarity": 4,
+    "type": "material",
+    "icon": "icons/data_supplement_stick.png",
+    "label": { "ko": "데이터 메모리" },
+    "craft": []
+  },
+  "Data Supplement Instrument": {
+    "rarity": 4,
+    "type": "material",
+    "icon": "icons/data_supplement_instrument.png",
+    "label": { "ko": "데이터 리더기" },
+    "craft": []
+  },
+  "Module Data Block": {
+    "rarity": 5,
+    "type": "material",
+    "icon": "icons/module_data_block.png",
+    "label": { "ko": "모듈 데이터 칩" },
     "craft": []
   }
 }
