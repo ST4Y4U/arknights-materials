@@ -143,6 +143,7 @@
 /* ---------- 라벨/상수 ---------- */
 const STAGE_LABELS = { E1: "1차 정예화", E2: "2차 정예화" };
 const stageDisp = s => STAGE_LABELS[s] || s;
+const STAGE_REVERSE = Object.fromEntries(Object.entries(STAGE_LABELS).map(([k,v])=>[v,k]));
 const TIER_ORDER = ["top","high","mid","low"];
 const TIER_LABEL = { top:"최상위", high:"상위", mid:"중위", low:"하위" };
 const tierRank = t => { const i=TIER_ORDER.indexOf(String(t||"low").toLowerCase()); return i===-1?TIER_ORDER.length:i; };
@@ -432,18 +433,20 @@ function injectCosts(ch, stageKey, acc){
   const add = (obj)=>{ if(!obj) return; for(const [k,v] of Object.entries(obj)) acc[k]=(acc[k]||0)+v; };
   const r = String(ch.rarity ?? "");
   const k = stageKey;
-  const kKo = (typeof STAGE_LABELS!=="undefined" && STAGE_LABELS[k]) ? STAGE_LABELS[k] : k;
+  const kKo = STAGE_LABELS[k] || k;   // E1 -> "1차 정예화"
+  const kEn = STAGE_REVERSE[k] || k;  // "1차 정예화" -> E1
 
-  // prereq(=promotion_costs 역할) 호환
-  add((costs?.promotion_costs?.[r]?.[k])   || (costs?.promotion_costs?.[r]?.[kKo]) ||
-      (costs?.promotion_prereq?.[r]?.[k])  || (costs?.promotion_prereq?.[r]?.[kKo]));
+  // 정예화 전제 비용(promotion_costs | promotion_prereq)
+  add((costs?.promotion_costs?.[r]?.[k])   || (costs?.promotion_costs?.[r]?.[kKo]) || (costs?.promotion_costs?.[r]?.[kEn]));
+  add((costs?.promotion_prereq?.[r]?.[k])  || (costs?.promotion_prereq?.[r]?.[kKo])|| (costs?.promotion_prereq?.[r]?.[kEn]));
 
-  // 실행 수수료
-  add((costs?.promotion_fee?.[r]?.[k])     || (costs?.promotion_fee?.[r]?.[kKo]));
+  // 정예화 실행 수수료
+  add((costs?.promotion_fee?.[r]?.[k])     || (costs?.promotion_fee?.[r]?.[kKo])   || (costs?.promotion_fee?.[r]?.[kEn]));
 
   // 캐릭터 개별 오버라이드
-  add((costs?.promotion_override?.[ch.name]?.[k]) || (costs?.promotion_override?.[ch.name]?.[kKo]));
+  add((costs?.promotion_override?.[ch.name]?.[k])  || (costs?.promotion_override?.[ch.name]?.[kKo]) || (costs?.promotion_override?.[ch.name]?.[kEn]));
 }
+
 
 
 /* ---------- 장바구니 ---------- */
@@ -540,4 +543,5 @@ function updateOwned(name, val){
 </script>
 </body>
 </html>
+
 
