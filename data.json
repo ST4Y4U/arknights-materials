@@ -193,6 +193,7 @@
     "rarity": 6,
     "image": "images/lemuen.png",
     "tags": ["스나이퍼","6성"],
+    "modules": ["DEA-Y"]
     "release": 372,
     "stages": {
       "E1": [ {"name":"Sniper Chip Pack","count":5 }, {"name":"Device","count":5 }, {"name":"Orirock Cube","count":7 } ],
@@ -205,6 +206,7 @@
     "rarity": 6,
     "image": "images/sankta_miksaparato.png",
     "tags": ["디펜더","6성"],
+    "modules": ["SPT-X"]
     "release": 371,
     "stages": {
       "E1": [ {"name":"Defender Chip Pack","count":5 }, {"name":"Orirock Cube","count":12 }, {"name":"Polyketon","count":4 } ],
@@ -217,6 +219,7 @@
     "rarity": 5,
     "image": "images/miss_christine.png",
     "tags": ["캐스터","5성"],
+    "modules": ["PRI-X"]
     "release": 374,
     "stages": {
       "E1": [ {"name":"Caster Chip Pack","count":4 }, {"name":"Orirock Cube","count":7 }, {"name":"Device","count":2 } ],
