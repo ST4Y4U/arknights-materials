@@ -11,12 +11,6 @@
     "5": { "E1": { "LMD": 20000 }, "E2": { "LMD": 120000 } },
     "6": { "E1": { "LMD": 30000 }, "E2": { "LMD": 180000 } }
   },
-  "promotion_override": {         
-    "SilverAsh": {
-      "E1": { "LMD": 0, "EXP": 0 },
-      "E2": { "LMD": 0, "EXP": 0 }
-    }
-  },
 
 "skill_levels": {
     "3": {
@@ -50,6 +44,15 @@
       "5": { "Skill Summary - 2": 8 },
       "6": { "Skill Summary - 2": 8 },
       "7": { "Skill Summary - 3": 8 }
+    }
+  },
+"module_override": {
+  "Lemuen": {
+    "DEA-Y": {
+      "S1": { "LMD": 80000, "Module Data Block": 4, "Crystalline Electronic Unit": 2 }
+      "S2": { "LMD": 100000, "Module Data Block": 4, "Data Supplement Stick": 60, "Rephasic Enantiomer": 3 }
+      "S3": { "LMD": 120000, "Module Data Block": 4, "Data Supplement Instrument": 20, "Polymerization Preparation": 4 }
+      }
     }
   }
 }
