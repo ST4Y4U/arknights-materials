@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <title>명일방주 재료 계산기</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <!-- 보안 최소 설정 -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'">
+  <meta name="referrer" content="no-referrer">
   <style>
     :root{ --bg:#0f1115; --panel:#171a21; --muted:#aab2c0; --pri:#20c997; --bd:#2a2f3a; --card:#1b1f27; --sel:#243548; --red:#d9534f;}
     *{box-sizing:border-box}
@@ -130,13 +134,14 @@
   <section id="basketWrap">
     <details open>
       <summary>
-        <strong>장바구니 합계</strong>
+        <strong>필요 재료 합계</strong>
         <span class="pill" id="selCount">0명 선택됨</span>
       </summary>
 
       <div class="selList" id="selList"></div>
 
       <div class="grid2" style="margin-top:8px">
+        <!-- 좌: 재료 -->
         <div>
           <div class="scrollArea">
             <table id="basketTable">
@@ -148,6 +153,7 @@
           </div>
         </div>
 
+        <!-- 우: LMD/EXP + 기타 -->
         <div class="miscGrid">
           <div class="currencyArea">
             <div class="scrollArea">
@@ -188,6 +194,10 @@
   </footer>
 
 <script>
+/* ---------- 보안용 escape ---------- */
+const ESC_MAP={'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}
+const esc=s=>String(s).replace(/[&<>"']/g,c=>ESC_MAP[c]);
+
 /* ---------- 라벨/상수 ---------- */
 const STAGE_LABELS = { E1: "1차 정예화", E2: "2차 정예화" };
 const STAGE_REVERSE = Object.fromEntries(Object.entries(STAGE_LABELS).map(([k,v])=>[v,k]));
@@ -302,7 +312,7 @@ function renderTagBar(){
   if(tags.length===0){ bar.innerHTML = `<span class="small">태그 없음</span>`; return; }
   tags.forEach(t=>{
     const btn = document.createElement("button");
-    btn.className = "chip"; btn.textContent = t;
+    btn.className = "chip"; btn.textContent = esc(t);
     btn.onclick = ()=>{ if(activeTags.has(t)) activeTags.delete(t); else activeTags.add(t); btn.classList.toggle("active"); page=1; renderGallery(); };
     bar.appendChild(btn);
   });
@@ -350,8 +360,8 @@ function renderGallery(){
     card.className = "card" + (selected.includes(idx) ? " selected" : "");
     card.innerHTML = `
       <img src="${ch.image||""}" loading="lazy" decoding="async" onerror="this.style.display='none'">
-      <div class="name">${dispChar(ch)}</div>
-      <div class="tags">${(ch.tags||[]).map(t=>`<span class="tag">${t}</span>`).join("")}</div>`;
+      <div class="name">${esc(dispChar(ch))}</div>
+      <div class="tags">${(ch.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div>`;
     card.onclick = ()=>{ toggleSelect(idx); lastDetail=idx; renderDetails(); };
     frag.appendChild(card);
   });
@@ -367,9 +377,9 @@ function toggleSelect(i){
 
 /* ---------- 상세 ---------- */
 function allowedLvPresetsByRarity(r){
-  if(r<=2) return [0,1];      // 1~2성: ~0차 + 최대
-  if(r===3) return [0,1,2];   // 3성: ~0차 + 최대, ~1차 + 최대
-  return [0,1,2,3,4];         // 4~6성
+  if(r<=2) return [0,1];
+  if(r===3) return [0,1,2];
+  return [0,1,2,3,4];
 }
 function renderDetails(){
   const d = $("#details");
@@ -379,9 +389,8 @@ function renderDetails(){
   const mo = getModOpt(ch);
   const sk = getSkillOpt(ch);
 
-  let html = `<h2>${dispChar(ch)}</h2>`;
+  let html = `<h2>${esc(dispChar(ch))}</h2>`;
 
-  /* 단계 표 좌우 */
   const stageEntries = Object.entries(ch.stages||{});
   const stageTables = stageEntries.map(([stage, mats])=>{
     if(typeof mo.stages?.[stage] === "undefined") mo.stages[stage] = true;
@@ -391,7 +400,7 @@ function renderDetails(){
         <thead>
           <tr>
             <th style="text-align:left">
-              ${stageDisp(stage)}
+              ${esc(stageDisp(stage))}
               <label class="small" style="margin-left:8px"><input type="checkbox" data-stage="${stage}" ${checked}> 포함</label>
             </th>
             <th>아이콘</th><th>재료</th><th>수량</th>
@@ -403,7 +412,7 @@ function renderDetails(){
             return `<tr>
               <td></td>
               <td>${imgTag(meta.icon, m.name)}</td>
-              <td>${disp(m.name)}</td>
+              <td>${esc(disp(m.name))}</td>
               <td>${m.count}</td>
             </tr>`;
           }).join("")}
@@ -412,12 +421,11 @@ function renderDetails(){
   }).join("");
   if(stageTables){ html += `<div class="grid2">${stageTables}</div>`; }
 
-  /* 좌: 레벨업 프리셋, 우: 스킬 옵션(1~2성 비표시) */
   const r = ch.rarity||0;
   const allowed = allowedLvPresetsByRarity(r);
   if(!allowed.includes(mo.levelPreset||0)){ mo.levelPreset = 0; saveModOpt(); }
   const radio = (val,label)=> allowed.includes(val)
-    ? `<label><input type="radio" name="lvPreset" value="${val}" ${mo.levelPreset===val?'checked':''}> ${label}</label>`
+    ? `<label><input type="radio" name="lvPreset" value="${val}" ${mo.levelPreset===val?'checked':''}> ${esc(label)}</label>`
     : "";
 
   const leftCol = `
@@ -442,8 +450,8 @@ function renderDetails(){
     const hasMastery = r>3;
     const sLbl = (k, fb)=>{
       const src = ch.skills?.[k]?.icon || "";
-      const img = src ? `<img src="${src}" alt="${fb}" width="22" height="22" style="vertical-align:middle;border-radius:4px;background:#0b0d12;margin-right:6px">` : "";
-      return img+fb;
+      const img = src ? `<img src="${src}" alt="${esc(fb)}" width="22" height="22" style="vertical-align:middle;border-radius:4px;background:#0b0d12;margin-right:6px">` : "";
+      return img+esc(fb);
     };
     let rows = `
       <tr>
@@ -480,7 +488,6 @@ function renderDetails(){
 
   html += `<div class="grid2">${leftCol}${rightCol}</div>`;
 
-  /* 모듈 */
   const mods = (ch.modules||[]).filter(t=>{
     const ov   = costs?.module_override?.[ch.name]?.[t];
     const base = costs?.module_costs?.[t];
@@ -495,7 +502,7 @@ function renderDetails(){
           ${mods.map(t=>{
             const lv = moState.types?.[t] ?? 0;
             return `<tr>
-              <td>${t}</td>
+              <td>${esc(t)}</td>
               <td>
                 <select class="modSelect" data-mod="${t}">
                   <option value="0" ${lv===0?'selected':''}>선택 안 함</option>
@@ -513,7 +520,6 @@ function renderDetails(){
   d.innerHTML = `<div class="detailWrap"><div class="bgE2" id="bgE2"></div><div class="detailContent">${html}</div></div>`;
   const bg = d.querySelector("#bgE2"); if(ch.imageE2){ bg.style.backgroundImage = `url('${ch.imageE2}')`; requestAnimationFrame(()=> bg.classList.add("show")); }
 
-  /* 이벤트 */
   d.querySelectorAll('input[data-stage]').forEach(el=>{
     el.onchange = ()=>{ mo.stages[el.dataset.stage] = el.checked; saveModOpt(); renderBasket(); };
   });
@@ -619,7 +625,7 @@ function moduleCostFor(ch){
   return acc;
 }
 
-/* ---------- 장바구니 ---------- */
+/* ---------- 장바구니(필요 재료 합계) ---------- */
 function renderBasket(){
   $("#selCount").textContent = `${selected.length}명 선택됨`;
 
@@ -628,7 +634,7 @@ function renderBasket(){
     const ch = data[i];
     const node = document.createElement("div");
     node.className = "selItem";
-    node.innerHTML = `<button title="제거" onclick="toggleSelect(${i})">×</button><span>${dispChar(ch)}</span>`;
+    node.innerHTML = `<button title="제거" onclick="toggleSelect(${i})">×</button><span>${esc(dispChar(ch))}</span>`;
     listWrap.appendChild(node);
   });
 
@@ -675,11 +681,11 @@ function renderBasket(){
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td>${imgTag(m.icon, m.name)}</td>
-        <td>${m.label}</td>
+        <td>${esc(m.label)}</td>
         <td>${m.count}</td>
         <td><input type="number" value="${have}" min="0"
           style="width:90px;background:var(--panel);border:1px solid var(--bd);color:#e6e9ef;padding:6px;border-radius:6px"
-          onchange="updateOwned('${m.name}', this.value)" /></td>`;
+          onchange="updateOwned('${m.name.replace(/'/g,"\\'")}', this.value)" /></td>`;
       tbody.appendChild(tr);
     });
   };
