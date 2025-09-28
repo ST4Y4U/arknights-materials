@@ -1,9 +1,11 @@
 {
   "leveling": {
-  "3": { "E0max": { "LMD": 13947, "EXP": 16400 }, "E1max": { "...": 0 }, "E2_60": { "...": 0 }, "E2max": { "...": 0 } },
-  "4": { "E0max": {}, "E1max": {}, "E2_60": {}, "E2max": {} },
-  "5": { "E0max": {}, "E1max": {}, "E2_60": {}, "E2max": {} },
-  "6": { "E0max": {}, "E1max": {}, "E2_60": {}, "E2max": {} }
+    "1": { "E0max": { "LMD": 6043, "EXP": 9800 },
+    "2": { "E0max": { "LMD": 6043, "EXP": 9800 },
+    "3": { "E0max": { "LMD": 13947, "EXP": 16400 }, "E1max": { "LMD": 80093, "EXP": 99000 },
+    "4": { "E0max": { "LMD": 19613, "EXP": 20200 }, "E1max": { "LMD": 111628, "EXP": 130000 }, "E2_60": { "LMD": 58313, "EXP": 92800 }, "E2max": { "LMD": 275762, "EXP": 333800 } },
+    "5": { "E0max": { "LMD": 26179, "EXP": 24400 }, "E1max": { "LMD": 205228, "EXP": 215000 }, "E2_60": { "LMD": 104346, "EXP": 150800 }, "E2max": { "LMD": 447378, "EXP": 495000 } },
+    "6": { "E0max": { "LMD": 26719, "EXP": 24400 }, "E1max": { "LMD": 353122, "EXP": 337000 }, "E2_60": { "LMD": 171674, "EXP": 227000 }, "E2max": { "LMD": 744955, "EXP": 750000 } }
   },
   "promotion_fee": {
     "3": { "E1": { "LMD": 10000 } },
@@ -45,6 +47,16 @@
       "7": { "Skill Summary - 3": 8 }
     }
   },
+"skill_levels_override": {
+  "Lemuen": {
+    "2": {},
+    "3": { "Sugar Substitute": 5, "Diketon": 4 },
+    "4": { "Polyester": 5 },
+    "5": { "Oriron": 4 , "Sugar": 3 },
+    "6": { "Integrated Device": 4 },
+    "7": { "Loxic Kohl": 5, "RMA70-12": 3 }
+  }
+},
 "module_override": {
   "Lemuen": {
     "DEA-Y": {
