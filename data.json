@@ -143,15 +143,84 @@
     }
   },
   {
+    "name": "Mon3tr",
+    "label": { "ko": "Mon3tr", "en": "Mon3tr" },
+    "rarity": 6,
+    "image": "images/mon3tr.png",
+    "tags": ["메딕","6성"],
+    "release": 368,
+    "stages": {
+      "E1": [ {"name":"Medic Chip Pack","count": 5 }, {"name":"Oriron","count":8 }, {"name":"Polyketon","count":3 } ],
+      "E2": [ {"name":"Medic Dualchip","count": 4 }, {"name":"Crystalline Electronic Unit","count": 4 }, {"name":"Orirock Concentration","count": 2 } ]
+    }
+  },
+  {
+    "name": "Confess-47",
+    "label": { "ko": "Confess-47", "en": "Confess-47" },
+    "rarity": 1,
+    "image": "images/confess-47.png",
+    "tags": ["뱅가드","1성"],
+    "release": 369,
+    "stages": {}
+  },
+  {
+    "name": "Gracebearer",
+    "label": { "ko": "그레이스베어러", "en": "Gracebearer" },
+    "rarity": 5,
+    "image": "images/gracebearer.png",
+    "tags": ["가드","5성"],
+    "release": 370,
+    "stages": {
+      "E1": [ {"name":"Specialist Chip Pack","count":4 }, {"name":"Polyketon","count":2 }, {"name":"Sugar","count":2 } ],
+      "E2": [ {"name":"Specialist Dualchip","count": 3 }, {"name":"Solidified Fiber Board","count": 7 }, {"name":"Manganese Ore","count": 14 } ]
+    }
+  },
+  {
     "name": "Exusiai the New Covenant",
     "label": { "ko": "엑시아 더 뉴 커버넌트", "en": "Exusiai the New Covenant" },
-    "rarity": 3,
+    "rarity": 6,
     "image": "images/exusiai_the_new_covenant.png",
     "tags": ["스페셜리스트","6성"],
-    "release": 14,
+    "release": 373,
     "stages": {
       "E1": [ {"name":"Specialist Chip Pack","count":5 }, {"name":"Polyketon","count":7 }, {"name":"Device","count":3 } ],
       "E2": [ {"name":"Specialist Dualchip","count": 4 }, {"name":"Rephasic Enantiomer","count": 4 }, {"name":"RMA70-24","count": 2 } ]
+    }
+  },
+  {
+    "name": "Lemuen",
+    "label": { "ko": "르무엔", "en": "Lemuen" },
+    "rarity": 6,
+    "image": "images/lemuen.png",
+    "tags": ["스나이퍼","6성"],
+    "release": 372,
+    "stages": {
+      "E1": [ {"name":"Sniper Chip Pack","count":5 }, {"name":"Device","count":5 }, {"name":"Orirock Cube","count":7 } ],
+      "E2": [ {"name":"Sniper Dualchip","count": 4 }, {"name":"Polymerization Preparation","count": 4 }, {"name":"Incandescent Alloy Block","count": 7 } ]
+    }
+  },
+  {
+    "name": "Sankta Miksaparato",
+    "label": { "ko": "산크타 믹스파라토", "en": "Sankta Miksaparato" },
+    "rarity": 6,
+    "image": "images/sankta_miksaparato.png",
+    "tags": ["디펜더","6성"],
+    "release": 371,
+    "stages": {
+      "E1": [ {"name":"Defender Chip Pack","count":5 }, {"name":"Orirock Cube","count":12 }, {"name":"Polyketon","count":4 } ],
+      "E2": [ {"name":"Defender Dualchip","count": 4 }, {"name":"D32 Steel","count": 4 }, {"name":"Crystalline Circuit","count": 5 } ]
+    }
+  },
+  {
+    "name": "Miss.Christine",
+    "label": { "ko": "미스 크리스틴", "en": "Miss.Christine" },
+    "rarity": 5,
+    "image": "images/miss_christine.png",
+    "tags": ["캐스터","5성"],
+    "release": 374,
+    "stages": {
+      "E1": [ {"name":"Caster Chip Pack","count":4 }, {"name":"Orirock Cube","count":7 }, {"name":"Device","count":2 } ],
+      "E2": [ {"name":"Caster Dualchip","count": 3 }, {"name":"Grindstone Pentahydrate","count": 7 }, {"name":"Oriron Cluster","count": 12 } ]
     }
   }
 ]
