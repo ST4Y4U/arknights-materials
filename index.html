@@ -8,12 +8,16 @@
     :root{ --bg:#0f1115; --panel:#171a21; --muted:#aab2c0; --pri:#20c997; --bd:#2a2f3a; --card:#1b1f27; --sel:#243548;}
     *{box-sizing:border-box}
     body{margin:0; font-family:system-ui,Segoe UI,Roboto,Apple SD Gothic Neo,Malgun Gothic,sans-serif; background:var(--bg); color:#e6e9ef; display:flex; flex-direction:column; min-height:100vh}
-    header{padding:12px 16px; background:#10131a; border-bottom:1px solid var(--bd); display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+    header{padding:12px 16px; background:#10131a; border-bottom:1px solid var(--bd); display:flex; flex-direction:column; gap:8px}
+    .topbar{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
     header h1{margin:0; font-size:18px; font-weight:600}
     .sp{flex:1}
     .ctrl{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
     input[type="search"]{background:var(--panel); border:1px solid var(--bd); color:#e6e9ef; padding:8px 10px; border-radius:8px; width:240px}
-    label.switch, select, button{background:var(--panel); border:1px solid var(--bd); color:#e6e9ef; padding:6px 10px; border-radius:8px; font-size:12px; cursor:pointer}
+    select,button,label.switch{background:var(--panel); border:1px solid var(--bd); color:#e6e9ef; padding:6px 10px; border-radius:8px; font-size:12px; cursor:pointer}
+    #tagBar{display:flex; gap:8px; flex-wrap:wrap}
+    .chip{font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid var(--bd); background:var(--panel); cursor:pointer; color:#cfd6e3}
+    .chip.active{outline:2px solid var(--pri)}
     main{display:grid; grid-template-columns: 1fr 1fr; gap:0; flex:1; min-height:0}
     #left{border-right:1px solid var(--bd); min-height:0; display:flex; flex-direction:column}
     #gallery{padding:12px; display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:12px; overflow:auto}
@@ -24,75 +28,86 @@
     .name{font-size:13px; font-weight:600}
     .tags{display:flex; flex-wrap:wrap; gap:6px}
     .tag{font-size:11px; padding:2px 6px; border-radius:999px; background:#0f1420; border:1px solid var(--bd); color:#aab2c0}
-    #tagBar{padding:8px 12px; display:flex; gap:8px; flex-wrap:wrap; border-top:1px solid var(--bd)}
-    .chip{font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid var(--bd); background:var(--panel); cursor:pointer; color:#cfd6e3}
-    .chip.active{outline:2px solid var(--pri)}
+    .pager{display:flex; gap:8px; align-items:center; justify-content:center; padding:8px 12px; border-top:1px solid var(--bd)}
+    .pager button{min-width:64px}
     #right{min-height:0; display:flex; flex-direction:column}
     #details{padding:12px; overflow:auto; position:relative}
     #details h2{margin:4px 0 8px; font-size:18px}
-    #details h3{margin:14px 0 6px; font-size:14px; color:#aab2c0}
-    #details ul{margin:0; padding-left:16px}
-    #details li{margin:2px 0; font-size:13px}
     .detailWrap{ position:relative; }
     .detailContent{ position:relative; z-index:1; }
     .bgE2{ position:absolute; inset:0; background:center/contain no-repeat; opacity:0; transition:opacity .35s ease; filter:grayscale(100%); pointer-events:none; }
     .bgE2.show{ opacity:.14; }
-    .skOpts{display:grid;gap:8px;margin:8px 0}
-    .skRow{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-    .skRow strong{min-width:48px;font-size:12px}
-    .skRow label{font-size:12px}
-    .skPrev table{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px}
-    .skPrev th,.skPrev td{border:1px solid var(--bd);padding:6px;text-align:center}
-    .skPrev th{background:#121722;color:#cdd6e5}
-    button.danger{border-color:#5b2d2d; background:#261416}
+    .tbl{width:100%; border-collapse:collapse; font-size:13px; margin:8px 0; background:var(--card); border:1px solid var(--bd); border-radius:8px; overflow:hidden}
+    .tbl th,.tbl td{border-bottom:1px solid var(--bd); padding:6px; text-align:center}
+    .tbl th{background:#121722; color:#cdd6e5}
+    .tbl td:first-child,.tbl th:first-child{text-align:left}
+    .optRow{display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin:8px 0}
+    .small{font-size:12px; color:#aab2c0}
     .rightTools{display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin:8px 0}
     #basketWrap{background:#0f131a; border-top:1px solid var(--bd)}
     details{padding:8px 12px}
     details>summary{cursor:pointer; list-style:none; display:flex; align-items:center; gap:8px}
     details>summary::-webkit-details-marker{display:none}
     .pill{font-size:12px; color:#9fb; background:#0f1d18; border:1px solid #1d3; padding:2px 8px; border-radius:999px}
-    table{width:100%; border-collapse:collapse; font-size:13px; margin-top:8px}
-    th,td{border:1px solid var(--bd); padding:6px; text-align:center}
-    th{background:#121722; color:#cdd6e5; position:sticky; top:0; z-index:1}
+    .grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px; align-items:start}
+    .scrollArea{ max-height:360px; overflow:auto; border:1px solid var(--bd); border-radius:8px; }
+    .scrollArea table{ width:100%; border-collapse:collapse; font-size:13px }
+    .scrollArea th,.scrollArea td{border:1px solid var(--bd); padding:6px; text-align:center}
+    .scrollArea th{background:#121722; color:#cdd6e5; position:sticky; top:0; z-index:1}
     td img{width:22px; height:22px; object-fit:contain; border-radius:4px; background:#0b0d12}
-    .toolRow{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
-    .small{font-size:12px; color:#aab2c0}
     .selList{display:flex; gap:6px; flex-wrap:wrap; margin-top:6px; max-height:120px; overflow:auto; padding:4px}
     .selItem{display:inline-flex; gap:6px; align-items:center; background:var(--panel); border:1px solid var(--bd); padding:4px 6px; border-radius:999px}
     .selItem button{padding:0; width:20px; height:20px; line-height:18px; font-size:14px; border-radius:10px}
-    tr.group td{ background:#121722; color:#cdd6e5; text-align:left; font-weight:700}
-    .scrollArea{ max-height:360px; overflow:auto; border:1px solid var(--bd); border-radius:8px; }
-    .scrollArea table{ margin:0; }
+    details.module{margin:6px 0}
+    details.module summary{padding:6px 8px; background:var(--panel); border:1px solid var(--bd); border-radius:8px}
     @media (max-width: 1024px){
       main{grid-template-columns:1fr}
       #left{border-right:none; border-bottom:1px solid var(--bd)}
+      .grid2{grid-template-columns:1fr}
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>명일방주 재료 계산기</h1>
-    <div class="sp"></div>
-    <div class="ctrl">
-      <input id="q" type="search" placeholder="캐릭터 검색 (이름/태그)" />
-      <label class="switch"><input type="checkbox" id="expandToggle" /> 하위 재료 포함</label>
-      <select id="groupBy">
-        <option value="rarity">정렬: 희귀도(합계표)</option>
-        <option value="tier">정렬: 티어(합계표)</option>
-      </select>
-      <select id="sortBy">
-        <option value="release">정렬: 출시순(갤러리)</option>
-        <option value="rarity">정렬: 희귀도(갤러리)</option>
-        <option value="name">정렬: 이름(갤러리)</option>
-      </select>
-      <button id="sortDirBtn">오름차순</button>
+    <div class="topbar">
+      <h1>명일방주 재료 계산기</h1>
+      <div class="sp"></div>
+      <div class="ctrl">
+        <input id="q" type="search" placeholder="캐릭터 검색 (이름/태그)" />
+        <label>하위 재료 포함
+          <select id="expandTo">
+            <option value="-1">미포함</option>
+            <option value="1">희귀도 ≤ 1</option>
+            <option value="2">희귀도 ≤ 2</option>
+            <option value="3">희귀도 ≤ 3</option>
+            <option value="4">희귀도 ≤ 4</option>
+            <option value="5">희귀도 ≤ 5</option>
+          </select>
+        </label>
+        <label>합계 정렬
+          <select id="sumSort">
+            <option value="count">필요 재료 최다순</option>
+            <option value="rarity">희귀도순</option>
+            <option value="name">이름순</option>
+          </select>
+        </label>
+        <button id="sortByRelease">갤러리: 출시순</button>
+        <button id="sortByRarity">갤러리: 희귀도순</button>
+        <button id="sortByName">갤러리: 이름순</button>
+        <button id="sortDirBtn">오름차순</button>
+      </div>
     </div>
+    <div id="tagBar"></div>
   </header>
 
   <main>
     <section id="left">
       <div id="gallery"></div>
-      <div id="tagBar"></div>
+      <div class="pager">
+        <button id="prevPage">이전</button>
+        <span class="small" id="pageInfo">1 / 1</span>
+        <button id="nextPage">다음</button>
+      </div>
     </section>
 
     <section id="right">
@@ -101,19 +116,9 @@
         <button id="clearOwn" class="danger">확보 수량 초기화</button>
         <span class="small" id="selMeta"></span>
       </div>
-      <div id="details"><em class="small">좌측에서 캐릭터를 선택해.</em></div>
+      <div id="details"><em class="small">좌측에서 캐릭터를 선택하세요.</em></div>
     </section>
   </main>
-
-  <!-- 친구 체크박스(선택사항). 필요 없으면 이 섹션 삭제해도 됨 -->
-  <section id="extraBox" style="padding:8px 12px">
-    <strong class="small">추가 옵션</strong><br>
-    <label><input type="checkbox" id="cb1" name="price" onclick="calcPrice()">
-      <span id="price1">LMD:10000</span></label><br>
-    <label><input type="checkbox" id="cb2" name="price" onclick="calcPrice()">
-      <span id="price2">EXP:5000</span></label><br>
-    <div id="result" class="small"></div>
-  </section>
 
   <section id="basketWrap">
     <details open>
@@ -122,78 +127,52 @@
         <span class="pill" id="selCount">0명 선택됨</span>
       </summary>
 
-      <div class="toolRow">
-        <div class="selList" id="selList"></div>
-      </div>
+      <div class="selList" id="selList"></div>
 
-      <div class="scrollArea">
-        <table id="basketTable">
-          <thead>
-            <tr><th>아이콘</th><th>재료</th><th>필요</th><th>확보</th></tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+      <div class="grid2" style="margin-top:8px">
+        <div>
+          <div class="scrollArea">
+            <table id="basketTable">
+              <thead>
+                <tr><th>아이콘</th><th>재료</th><th>필요</th><th>확보</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <div class="scrollArea">
+            <table id="basketMisc">
+              <thead>
+                <tr><th>아이콘</th><th>이름</th><th>필요</th><th>확보</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <p class="small" style="margin:6px 0">확보 수량은 이 브라우저의 LocalStorage에 저장됩니다.</p>
+        </div>
       </div>
-
-      <h3 style="margin-top:16px">통화 / EXP</h3>
-      <div class="scrollArea">
-        <table id="basketMisc">
-          <thead>
-            <tr><th>아이콘</th><th>이름</th><th>필요</th><th>확보</th></tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-
-      <p class="small">확보 수량은 이 브라우저의 LocalStorage에 저장된다.</p>
     </details>
   </section>
 
 <script>
 /* ---------- 라벨/상수 ---------- */
 const STAGE_LABELS = { E1: "1차 정예화", E2: "2차 정예화" };
+const STAGE_REVERSE = Object.fromEntries(Object.entries(STAGE_LABELS).map(([k,v])=>[v,k]));
 const stageDisp = s => STAGE_LABELS[s] || s;
-const STAGE_REVERSE = Object.fromEntries(Object.entries(STAGE_LABELS).map(([k,v])=>[v,k])); // 한글→E키
-const TIER_ORDER = ["top","high","mid","low"];
-const TIER_LABEL = { top:"최상위", high:"상위", mid:"중위", low:"하위" };
-const tierRank = t => { const i=TIER_ORDER.indexOf(String(t||"low").toLowerCase()); return i===-1?TIER_ORDER.length:i; };
+const isMiscRow = r => r.type==="currency" || r.type==="exp" || r.name==="LMD" || r.name==="EXP";
 
 /* ---------- 상태 ---------- */
-let data = [];
-let materials = {};
-let costs = {};
-let selected = [];
-let lastDetail = -1;
+let data=[], materials={}, costs={};
+let selected=[], lastDetail=-1;
 let owned = JSON.parse(localStorage.getItem("owned_v1") || "{}");
-let expand = false;
-let activeTags = new Set();
-let query = "";
-let groupBy = "rarity";
-let sortBy = "release";
-let sortDir = "asc";
+let activeTags = new Set(); let query = "";
+let sortBy = "release"; let sortDir = "asc";
+let page=1, pageSize=48, filteredCount=0;
+let expandTo = -1; // -1 = 미포함, 1..5 = 희귀도 임계
+let sumSort = "count";
 
-/* 친구 체크박스 합산(선택) */
-let extras = {};
-function calcPrice() {
-  extras = {};
-  const cbs = document.getElementsByName('price');
-  for (let i = 0; i < cbs.length; i++) {
-    const cb = cbs[i];
-    if (cb.checked) {
-      const spanId = cb.id.replace('cb','price');
-      const txt = (document.getElementById(spanId)?.textContent || "").trim();
-      const m = txt.match(/^([^:]*?)\s*:?\s*([0-9]+)$/); // "재료:수량" 또는 "수량"
-      const mat = (m && m[1].trim()) ? m[1].trim() : "LMD";
-      const count = m ? parseInt(m[2],10) : 0;
-      if (count>0) extras[mat] = (extras[mat]||0) + count;
-    }
-  }
-  const r = document.getElementById('result');
-  if (r) r.textContent = Object.entries(extras).map(([k,v])=>`${k}:${v}`).join(", ");
-  renderBasket();
-}
-
-/* 스킬 옵션 v2 */
+/* 스킬 옵션 */
 let skillOpt = JSON.parse(localStorage.getItem("skillOpt_v2") || "{}");
 function getSkillOpt(ch){
   const k = ch.name;
@@ -202,22 +181,21 @@ function getSkillOpt(ch){
 }
 function saveSkillOpt(){ localStorage.setItem("skillOpt_v2", JSON.stringify(skillOpt)); }
 
-/* 모듈/레벨업 옵션 */
-let modOpt = JSON.parse(localStorage.getItem("modOpt_v1") || "{}");
-// { "SilverAsh": { preE1:false, types:{ X:false, Y:true } } }
+/* 모듈/레벨업 옵션 + 단계(E1/E2) 포함 옵션 */
+let modOpt   = JSON.parse(localStorage.getItem("modOpt_v1") || "{}"); // { name:{ preE1:false, types:{COR-Y:2}, stages:{E1:true,E2:true} } }
+let stageOpt = JSON.parse(localStorage.getItem("stageOpt_v1") || "{}");
 function getModOpt(ch){
   const k = ch.name;
-  if(!modOpt[k]) modOpt[k] = { preE1:false, types:{} };
-  (ch.modules||[]).forEach(t=>{ if(typeof modOpt[k].types[t]==="undefined") modOpt[k].types[t]=false; });
+  if(!modOpt[k]) modOpt[k] = { preE1:false, types:{}, stages:{E1:true,E2:true} };
+  (ch.modules||[]).forEach(t=>{ if(typeof modOpt[k].types[t]==="undefined") modOpt[k].types[t]=0; }); // 0~3
+  if(!modOpt[k].stages) modOpt[k].stages = {E1:true,E2:true};
   return modOpt[k];
 }
 function saveModOpt(){ localStorage.setItem("modOpt_v1", JSON.stringify(modOpt)); }
 
-/* ---------- 캐시 ---------- */
+/* ---------- 캐시/유틸 ---------- */
 const expandCache = new Map();
-
-/* ---------- 유틸 ---------- */
-const $ = sel => document.querySelector(sel);
+const $ = s => document.querySelector(s);
 function disp(name){ return (materials[name]?.label?.ko) || name; }
 function dispChar(ch){ return (ch.label?.ko) || ch.name; }
 function slug(s){ return String(s||"").toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,""); }
@@ -229,7 +207,6 @@ function imgTag(src, name){
 }
 function sumInto(target, delta){ if(!delta) return; for(const [k,v] of Object.entries(delta)) target[k]=(target[k]||0)+v; }
 async function fetchJSON(url, fb={}){ try{ const r=await fetch(url); if(!r.ok) throw 0; return await r.json(); }catch{ console.warn('LOAD_FAIL',url); return fb; } }
-function isMiscRow(r){ return r.type==="currency" || r.type==="exp" || r.name==="LMD" || r.name==="EXP"; }
 
 /* ---------- 초기화 ---------- */
 (async function init(){
@@ -246,9 +223,12 @@ function isMiscRow(r){ return r.type==="currency" || r.type==="exp" || r.name===
 
 /* ---------- 이벤트 ---------- */
 function bindEvents(){
-  $("#expandToggle").addEventListener("change", e=>{ expand = e.target.checked; renderBasket(); });
-  $("#groupBy").addEventListener("change", e=>{ groupBy = e.target.value; renderBasket(); });
-  $("#sortBy").addEventListener("change", e=>{ sortBy = e.target.value; renderGallery(); });
+  // 상단 컨트롤
+  $("#expandTo").addEventListener("change", e=>{ expandTo = parseInt(e.target.value,10); renderBasket(); });
+  $("#sumSort").addEventListener("change", e=>{ sumSort = e.target.value; renderBasket(); });
+  $("#sortByRelease").addEventListener("click", ()=>{ sortBy="release"; renderGallery(); });
+  $("#sortByRarity").addEventListener("click", ()=>{ sortBy="rarity"; renderGallery(); });
+  $("#sortByName").addEventListener("click", ()=>{ sortBy="name"; renderGallery(); });
   $("#sortDirBtn").addEventListener("click", ()=>{
     sortDir = (sortDir === "asc") ? "desc" : "asc";
     $("#sortDirBtn").textContent = (sortDir === "asc") ? "오름차순" : "내림차순";
@@ -257,14 +237,19 @@ function bindEvents(){
   let qTimer=null;
   $("#q").addEventListener("input", e=>{
     clearTimeout(qTimer);
-    qTimer=setTimeout(()=>{ query = e.target.value.trim().toLowerCase(); renderGallery(); },150);
+    qTimer=setTimeout(()=>{ query = e.target.value.trim().toLowerCase(); page=1; renderGallery(); },150);
   });
+
+  // 페이지네이션
+  $("#prevPage").addEventListener("click", ()=>{ if(page>1){ page--; renderGallery(); } });
+  $("#nextPage").addEventListener("click", ()=>{
+    const total = Math.max(1, Math.ceil(filteredCount/pageSize));
+    if(page<total){ page++; renderGallery(); }
+  });
+
+  // 버튼
   $("#clearSel").addEventListener("click", ()=>{ selected = []; lastDetail = -1; renderGallery(); renderDetails(); renderBasket(); });
   $("#clearOwn").addEventListener("click", ()=>{ owned = {}; localStorage.setItem("owned_v1", JSON.stringify(owned)); renderBasket(); });
-
-  document.addEventListener('change', e=>{
-    if(e.target.matches('input[name="price"]')) calcPrice();
-  });
 }
 
 /* ---------- 태그 바 ---------- */
@@ -276,7 +261,7 @@ function renderTagBar(){
   tags.forEach(t=>{
     const btn = document.createElement("button");
     btn.className = "chip"; btn.textContent = t;
-    btn.onclick = ()=>{ if(activeTags.has(t)) activeTags.delete(t); else activeTags.add(t); btn.classList.toggle("active"); renderGallery(); };
+    btn.onclick = ()=>{ if(activeTags.has(t)) activeTags.delete(t); else activeTags.add(t); btn.classList.toggle("active"); page=1; renderGallery(); };
     bar.appendChild(btn);
   });
 }
@@ -295,6 +280,7 @@ function matchesFilters(ch){
 function renderGallery(){
   const g = $("#gallery"); g.innerHTML = "";
   const items = data.filter(matchesFilters);
+  filteredCount = items.length;
 
   const nameKey = ch => (ch.label?.ko || ch.label?.en || ch.name || "");
   const getRelease = ch => (typeof ch.release === "number" ? ch.release :
@@ -309,24 +295,27 @@ function renderGallery(){
   };
   items.sort(cmpChar);
 
-  let i=0, chunk=36;
-  (function pump(){
-    const frag = document.createDocumentFragment();
-    for(let k=0;k<chunk && i<items.length;k++,i++){
-      const ch = items[i];
-      const idx = data.indexOf(ch);
-      const card = document.createElement("div");
-      card.className = "card" + (selected.includes(idx) ? " selected" : "");
-      card.innerHTML = `
-        <img src="${ch.image||""}" loading="lazy" decoding="async" onerror="this.style.display='none'">
-        <div class="name">${dispChar(ch)}</div>
-        <div class="tags">${(ch.tags||[]).map(t=>`<span class="tag">${t}</span>`).join("")}</div>`;
-      card.onclick = ()=>{ toggleSelect(idx); lastDetail=idx; renderDetails(); };
-      frag.appendChild(card);
-    }
-    g.appendChild(frag);
-    if(i<items.length) (window.requestIdleCallback||setTimeout)(pump, 0);
-  })();
+  const total = Math.max(1, Math.ceil(filteredCount/pageSize));
+  if(page>total) page = total;
+  $("#pageInfo").textContent = `${page} / ${total}`;
+
+  const start = (page-1)*pageSize;
+  const slice = items.slice(start, start+pageSize);
+
+  const frag = document.createDocumentFragment();
+  slice.forEach(ch=>{
+    const idx = data.indexOf(ch);
+    const card = document.createElement("div");
+    card.className = "card" + (selected.includes(idx) ? " selected" : "");
+    card.innerHTML = `
+      <img src="${ch.image||""}" loading="lazy" decoding="async" onerror="this.style.display='none'">
+      <div class="name">${dispChar(ch)}</div>
+      <div class="tags">${(ch.tags||[]).map(t=>`<span class="tag">${t}</span>`).join("")}</div>`;
+    card.onclick = ()=>{ toggleSelect(idx); lastDetail=idx; renderDetails(); };
+    frag.appendChild(card);
+  });
+  g.appendChild(frag);
+
   $("#selMeta").textContent = `${selected.length}명 선택됨`;
 }
 function toggleSelect(i){
@@ -338,67 +327,91 @@ function toggleSelect(i){
 /* ---------- 상세 ---------- */
 function renderDetails(){
   const d = $("#details");
-  if(selected.length===0){ d.innerHTML = `<em class="small">좌측에서 캐릭터를 선택해.</em>`; return; }
+  if(selected.length===0){ d.innerHTML = `<em class="small">좌측에서 캐릭터를 선택하세요.</em>`; return; }
   if(lastDetail===-1 || !selected.includes(lastDetail)) lastDetail = selected[selected.length-1];
   const ch = data[lastDetail];
-
-  let inner = `<h2>${dispChar(ch)}</h2>`;
-  if(ch.image) inner += `<div style="margin:6px 0 10px">${imgTag(ch.image, ch.name)}</div>`;
-  for(const [stage, mats] of Object.entries(ch.stages||{})){
-    inner += `<h3>${stageDisp(stage)}</h3><ul>`;
-    (mats||[]).forEach(m=>{ inner += `<li>${disp(m.name)} × ${m.count}</li>`; });
-    inner += `</ul>`;
-  }
-
-  // 스킬 옵션
-  const opt = getSkillOpt(ch);
-  const row = (key,label)=>{
-    const o = opt[key];
-    return `<div class="skRow">
-      <strong>${label}</strong>
-      <label><input type="checkbox" ${o.m1?'checked':''}   id="${key}_m1"> 8</label>
-      <label><input type="checkbox" ${o.m2?'checked':''}   id="${key}_m2"> 9</label>
-      <label><input type="checkbox" ${o.m3?'checked':''}   id="${key}_m3"> 10</label>
-    </div>`;
-  };
-  inner += `<h3>스킬 옵션</h3>
-  <div class="skOpts">
-    <div class="skRow"><strong>공통</strong>
-      <label><input type="checkbox" ${opt.lv7?'checked':''} id="lv7_all"> 1~7</label>
-    </div>
-    ${row("s1","스킬 1")}
-    ${row("s2","스킬 2")}
-    ${row("s3","스킬 3")}
-  </div>
-  <div class="skPrev" id="skillPreview"></div>`;
-
-  // 레벨업/모듈 옵션
   const mo = getModOpt(ch);
-  inner += `<h3>레벨업 옵션</h3>
-  <div class="skOpts">
-    <div class="skRow">
-      <label><input type="checkbox" id="preE1_cb" ${mo.preE1?'checked':''}> 0→E1-1 레벨업 포함</label>
-    </div>
-  </div>`;
 
-  if ((ch.modules||[]).length){
-    inner += `<h3>모듈</h3><div class="skOpts">` +
-      (ch.modules||[]).map(t=>{
-        const on = mo.types?.[t] ? 'checked' : '';
-        return `<div class="skRow">
-          <label><input type="checkbox" class="modType" data-mod="${t}" ${on}> 모듈 ${t}</label>
-        </div>`;
-      }).join("") + `</div>`;
-  }
+  // 제목 + E2 배경
+  let html = `<h2>${dispChar(ch)}</h2>`;
 
-  d.innerHTML = `<div class="detailWrap">
-                   <div class="bgE2" id="bgE2"></div>
-                   <div class="detailContent">${inner}</div>
-                 </div>`;
-  const bg = d.querySelector("#bgE2");
-  if(ch.imageE2){ bg.style.backgroundImage = `url('${ch.imageE2}')`; requestAnimationFrame(()=> bg.classList.add("show")); }
+  // 단계 포함 토글 + 단계별 표
+  const stages = Object.entries(ch.stages||{});
+  stages.forEach(([stage, mats])=>{
+    if(typeof mo.stages?.[stage] === "undefined") mo.stages[stage] = true;
+    const checked = mo.stages[stage] ? "checked" : "";
+    html += `
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th style="text-align:left">${stageDisp(stage)} <label class="small" style="margin-left:8px"><input type="checkbox" data-stage="${stage}" ${checked}> 포함</label></th>
+            <th>아이콘</th><th>재료</th><th>수량</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${(mats||[]).map(m=>{
+            const meta = materials[m.name]||{};
+            return `<tr>
+              <td></td>
+              <td>${imgTag(meta.icon, m.name)}</td>
+              <td>${disp(m.name)}</td>
+              <td>${m.count}</td>
+            </tr>`;
+          }).join("")}
+        </tbody>
+      </table>`;
+  });
 
-  // 이벤트
+  // 스킬 옵션 표
+  const opt = getSkillOpt(ch);
+  const showMastery = (ch.rarity||0) > 3;
+  html += `
+    <table class="tbl">
+      <thead><tr><th style="text-align:left">스킬 옵션</th><th colspan="3">선택</th></tr></thead>
+      <tbody>
+        <tr><td>공통 1~7</td><td colspan="3" style="text-align:left">
+          <label><input type="checkbox" id="lv7_all" ${opt.lv7?'checked':''}> ~0정예 최대 레벨</label>
+        </td></tr>
+        ${showMastery? `
+          <tr><td>스킬 1 (8/9/10)</td><td><label><input type="checkbox" id="s1_m1" ${opt.s1.m1?'checked':''}> 8</label></td><td><label><input type="checkbox" id="s1_m2" ${opt.s1.m2?'checked':''}> 9</label></td><td><label><input type="checkbox" id="s1_m3" ${opt.s1.m3?'checked':''}> 10</label></td></tr>
+          <tr><td>스킬 2 (8/9/10)</td><td><label><input type="checkbox" id="s2_m1" ${opt.s2.m1?'checked':''}> 8</label></td><td><label><input type="checkbox" id="s2_m2" ${opt.s2.m2?'checked':''}> 9</label></td><td><label><input type="checkbox" id="s2_m3" ${opt.s2.m3?'checked':''}> 10</label></td></tr>
+          <tr><td>스킬 3 (8/9/10)</td><td><label><input type="checkbox" id="s3_m1" ${opt.s3.m1?'checked':''}> 8</label></td><td><label><input type="checkbox" id="s3_m2" ${opt.s3.m2?'checked':''}> 9</label></td><td><label><input type="checkbox" id="s3_m3" ${opt.s3.m3?'checked':''}> 10</label></td></tr>
+        ` : ``}
+      </tbody>
+    </table>
+    <div class="small" id="skillPreview"></div>
+  `;
+
+  // 모듈(토글형, 레벨 0~3 라디오, 누적 합산)
+  const mods = (ch.modules||[]).filter(t=>{
+    const ov   = costs?.module_override?.[ch.name]?.[t];
+    const base = costs?.module_costs?.[t];
+    return !!(ov || base);
+  });
+  mods.forEach(t=>{
+    const lv = mo.types?.[t] ?? 0;
+    html += `
+      <details class="module">
+        <summary>${t}</summary>
+        <div class="optRow">
+          <label><input type="radio" name="mod_${t}" data-mod="${t}" value="0" ${lv==0?'checked':''}> 0레벨</label>
+          <label><input type="radio" name="mod_${t}" data-mod="${t}" value="1" ${lv==1?'checked':''}> 1레벨</label>
+          <label><input type="radio" name="mod_${t}" data-mod="${t}" value="2" ${lv==2?'checked':''}> 2레벨</label>
+          <label><input type="radio" name="mod_${t}" data-mod="${t}" value="3" ${lv==3?'checked':''}> 3레벨</label>
+        </div>
+      </details>`;
+  });
+
+  // 출력
+  d.innerHTML = `<div class="detailWrap"><div class="bgE2" id="bgE2"></div><div class="detailContent">${html}</div></div>`;
+  const bg = d.querySelector("#bgE2"); if(ch.imageE2){ bg.style.backgroundImage = `url('${ch.imageE2}')`; requestAnimationFrame(()=> bg.classList.add("show")); }
+
+  // 이벤트 바인딩
+  // 단계 포함
+  d.querySelectorAll('input[data-stage]').forEach(el=>{
+    el.onchange = ()=>{ mo.stages[el.dataset.stage] = el.checked; saveModOpt(); renderBasket(); };
+  });
+  // 스킬
   const lv7box = d.querySelector("#lv7_all");
   if(lv7box) lv7box.onchange = ()=>{ opt.lv7 = lv7box.checked; saveSkillOpt(); renderSkillPreview(ch); renderBasket(); };
   ["s1","s2","s3"].forEach(k=>{
@@ -407,10 +420,9 @@ function renderDetails(){
       if(el) el.onchange = ()=>{ opt[k][t] = el.checked; saveSkillOpt(); renderSkillPreview(ch); renderBasket(); };
     });
   });
-  const pre = d.querySelector("#preE1_cb");
-  if(pre) pre.onchange = ()=>{ mo.preE1 = pre.checked; saveModOpt(); renderBasket(); };
-  d.querySelectorAll(".modType").forEach(el=>{
-    el.onchange = ()=>{ mo.types[el.dataset.mod] = el.checked; saveModOpt(); renderBasket(); };
+  // 모듈 레벨
+  d.querySelectorAll('input[type="radio"][name^="mod_"]').forEach(el=>{
+    el.onchange = ()=>{ mo.types[el.dataset.mod] = parseInt(el.value,10)||0; saveModOpt(); renderBasket(); };
   });
 
   renderSkillPreview(ch);
@@ -429,12 +441,14 @@ function skillCostFor(ch){
   const addM = (sKey, mKey)=> addObj(mst?.[sKey]?.[mKey]);
 
   if(opt.lv7) addLv1to7();
-  ["s1","s2","s3"].forEach(s=>{
-    const o = opt[s]; if(!o) return;
-    if(o.m1) addM(s,"M1");
-    if(o.m2) addM(s,"M2");
-    if(o.m3) addM(s,"M3");
-  });
+  if((ch.rarity||0)>3){
+    ["s1","s2","s3"].forEach(s=>{
+      const o = opt[s]; if(!o) return;
+      if(o.m1) addM(s,"M1");
+      if(o.m2) addM(s,"M2");
+      if(o.m3) addM(s,"M3");
+    });
+  }
   return acc;
 }
 function renderSkillPreview(ch){
@@ -447,49 +461,36 @@ function renderSkillPreview(ch){
   });
   const main = rows.filter(r=>!isMiscRow(r)).sort((a,b)=>a.label.localeCompare(b.label,"ko"));
   const misc = rows.filter(isMiscRow).sort((a,b)=>a.label.localeCompare(b.label,"ko"));
-
   const mk = (title, arr)=> arr.length? `
-    <h4 style="margin:10px 0 4px;color:#aab2c0;font-size:12px">${title}</h4>
-    <table><thead><tr><th>아이콘</th><th>재료</th><th>수량</th></tr></thead>
-    <tbody>
-      ${arr.map(m=>`<tr>
-        <td>${imgTag(m.icon, m.name)}</td>
-        <td>${m.label}</td>
-        <td>${m.count}</td>
-      </tr>`).join("")}
-    </tbody></table>` : "";
-  box.innerHTML = mk("스킬 재료 합계", main) + mk("통화 / EXP 합계", misc);
+    <table class="tbl"><thead><tr><th style="text-align:left">${title}</th><th>아이콘</th><th>재료</th><th>수량</th></tr></thead>
+    <tbody>${arr.map(m=>`<tr><td></td><td>${imgTag(m.icon, m.name)}</td><td>${m.label}</td><td>${m.count}</td></tr>`).join("")}</tbody></table>` : "";
+  box.innerHTML = mk("스킬 재료 합계", main) + mk("용문폐 / EXP 합계", misc);
 }
 
-/* ---------- 재귀 확장 ---------- */
-function expandMaterial(name, count){
-  if(!expand) return {[name]: count};
-  const meta = materials[name], craft = meta?.craft || [];
-  if(craft.length===0) return {[name]: count};
-  if(!expandCache.has(name)){
-    let unit={}; craft.forEach(c=> sumInto(unit, expandMaterial(c.name, c.count)));
-    expandCache.set(name, unit);
-  }
-  const base = expandCache.get(name);
-  let acc={}; Object.entries(base).forEach(([k,v])=> acc[k]=(acc[k]||0)+v*count);
+/* ---------- 확장(희귀도 임계) ---------- */
+function expandMaterial(name, count, thr){
+  if(thr<0) return {[name]: count};
+  const meta = materials[name]; const r = meta?.rarity ?? 999;
+  const craft = meta?.craft || [];
+  if(r <= thr || craft.length===0) return {[name]: count};
+  let acc={};
+  craft.forEach(c=> sumInto(acc, expandMaterial(c.name, c.count*count, thr)));
   return acc;
 }
 
-/* ---------- 정예화 비용 주입(키 호환) ---------- */
+/* ---------- 정예화/레벨업/모듈 ---------- */
 function injectCosts(ch, stageKey, acc){
   const add = (obj)=>{ if(!obj) return; for(const [k,v] of Object.entries(obj)) acc[k]=(acc[k]||0)+v; };
   const r = String(ch.rarity ?? "");
   const k = stageKey;
-  const kKo = STAGE_LABELS[k] || k; // E1 -> "1차 정예화"
-  const kEn = STAGE_REVERSE[k] || k; // "1차 정예화" -> E1
+  const kKo = STAGE_LABELS[k] || k;
+  const kEn = STAGE_REVERSE[k] || k;
 
   add((costs?.promotion_costs?.[r]?.[k])   || (costs?.promotion_costs?.[r]?.[kKo]) || (costs?.promotion_costs?.[r]?.[kEn]));
   add((costs?.promotion_prereq?.[r]?.[k])  || (costs?.promotion_prereq?.[r]?.[kKo])|| (costs?.promotion_prereq?.[r]?.[kEn]));
   add((costs?.promotion_fee?.[r]?.[k])     || (costs?.promotion_fee?.[r]?.[kKo])   || (costs?.promotion_fee?.[r]?.[kEn]));
   add((costs?.promotion_override?.[ch.name]?.[k]) || (costs?.promotion_override?.[ch.name]?.[kKo]) || (costs?.promotion_override?.[ch.name]?.[kEn]));
 }
-
-/* ---------- 0→E1-1 레벨업, 모듈 ---------- */
 function levelupPreE1Cost(ch){
   const mo = getModOpt(ch);
   if(!mo.preE1) return {};
@@ -503,13 +504,12 @@ function moduleCostFor(ch){
   const mo = getModOpt(ch);
   if(!mo.types) return {};
   let acc = {};
-  for(const [t,on] of Object.entries(mo.types)){
-    if(!on) continue;
-    const ov   = costs?.module_override?.[ch.name]?.[t]?.S1;
-    const base = costs?.module_costs?.[t]?.S1;
-    const pick = ov || base;
-    if(!pick) continue;
-    for(const [k,v] of Object.entries(pick)) acc[k]=(acc[k]||0)+v;
+  for(const [t,lv] of Object.entries(mo.types)){
+    const def = costs?.module_costs?.[t] || {};
+    const ov  = costs?.module_override?.[ch.name]?.[t] || {};
+    const pick = {...def, ...ov}; // ov 우선
+    const steps = [1,2,3].filter(n=> lv>=n).map(n=> pick["S"+n]).filter(Boolean);
+    steps.forEach(step=>{ for(const [k,v] of Object.entries(step)) acc[k]=(acc[k]||0)+v; });
   }
   return acc;
 }
@@ -532,8 +532,10 @@ function renderBasket(){
   let sum = {};
   selected.forEach(i=>{
     const ch = data[i];
+    const mo = getModOpt(ch);
     for(const [stageKey, mats] of Object.entries(ch.stages||{})){
-      (mats||[]).forEach(m=>{ sumInto(sum, expandMaterial(m.name, m.count)); });
+      if(mo.stages?.[stageKey]===false) continue; // 단계 제외
+      (mats||[]).forEach(m=>{ sumInto(sum, expandMaterial(m.name, m.count, expandTo)); });
       injectCosts(ch, stageKey, sum);
     }
     sumInto(sum, skillCostFor(ch));
@@ -541,10 +543,8 @@ function renderBasket(){
     sumInto(sum, moduleCostFor(ch));
   });
 
-  // 추가 체크박스 합산
-  sumInto(sum, extras);
-
-  const rows = Object.keys(sum).map(name=>{
+  // rows 구성
+  let rows = Object.keys(sum).map(name=>{
     const meta = materials[name] || {};
     return {
       name,
@@ -552,41 +552,26 @@ function renderBasket(){
       count: sum[name],
       rarity: meta.rarity ?? 0,
       icon: meta.icon || "",
-      type: meta.type || "material",
-      tier: meta.tier || "low"
+      type: meta.type || "material"
     };
   });
 
-  const cmp = (a,b)=>{
-    if(groupBy==="tier" && !isMiscRow(a) && !isMiscRow(b)){
-      const t = tierRank(a.tier) - tierRank(b.tier); if(t!==0) return t;
-      const r = b.rarity - a.rarity; if(r!==0) return r;
-      return a.label.localeCompare(b.label,"ko");
-    }else{
-      const r = b.rarity - a.rarity; if(r!==0) return r;
-      return a.label.localeCompare(b.label,"ko");
-    }
-  };
-
+  // 정렬
+  const cmp = {
+    count: (a,b)=> (b.count - a.count) || (b.rarity - a.rarity) || a.label.localeCompare(b.label,"ko"),
+    rarity:(a,b)=> (b.rarity - a.rarity) || a.label.localeCompare(b.label,"ko"),
+    name:  (a,b)=> a.label.localeCompare(b.label,"ko")
+  }[sumSort] || ((a,b)=>0);
   const main = rows.filter(x=>!isMiscRow(x)).sort(cmp);
-  const misc = rows.filter(isMiscRow).sort((a,b)=>a.label.localeCompare(b.label,"ko"));
+  const misc = rows.filter(isMiscRow).sort((a,b)=> a.label.localeCompare(b.label,"ko"));
 
+  // 렌더
   const bodyMain = document.querySelector("#basketTable tbody");
   const bodyMisc = document.querySelector("#basketMisc tbody");
   bodyMain.innerHTML = ""; bodyMisc.innerHTML = "";
 
   const renderRows = (arr, tbody)=>{
-    let prevTier = null;
     arr.forEach(m=>{
-      if(groupBy==="tier" && !isMiscRow(m)){
-        const t = String(m.tier||"low").toLowerCase();
-        if(t!==prevTier){
-          const gh = document.createElement("tr");
-          gh.className = "group";
-          gh.innerHTML = `<td colspan="4">${TIER_LABEL[t]||"하위"}</td>`;
-          tbody.appendChild(gh); prevTier = t;
-        }
-      }
       const have = owned[m.name] || 0;
       const tr = document.createElement("tr");
       tr.innerHTML = `
@@ -599,9 +584,9 @@ function renderBasket(){
       tbody.appendChild(tr);
     });
   };
-
   renderRows(main, bodyMain);
   renderRows(misc, bodyMisc);
+  $("#selMeta").textContent = `${selected.length}명 선택됨`;
 }
 
 function updateOwned(name, val){
