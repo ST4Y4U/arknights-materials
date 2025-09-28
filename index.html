@@ -105,6 +105,21 @@
     </section>
   </main>
 
+  <!-- ▼ 추가 체크박스(친구 코드 방식) : 필요하면 항목 더 추가 -->
+  <section id="extraBox" style="padding:8px 12px">
+    <strong class="small">추가 옵션</strong><br>
+    <label><input type="checkbox" id="cb1" name="price" onclick="calcPrice()">
+      <span id="price1">LMD:10000</span></label><br>
+    <label><input type="checkbox" id="cb2" name="price" onclick="calcPrice()">
+      <span id="price2">EXP:5000</span></label><br>
+    <!-- 예시
+    <label><input type="checkbox" id="cb3" name="price" onclick="calcPrice()">
+      <span id="price3">Orirock Concentration:3</span></label><br>
+    -->
+    <div id="result" class="small"></div>
+  </section>
+  <!-- ▲ 추가 체크박스 끝 -->
+
   <section id="basketWrap">
     <details open>
       <summary>
@@ -143,7 +158,7 @@
 /* ---------- 라벨/상수 ---------- */
 const STAGE_LABELS = { E1: "1차 정예화", E2: "2차 정예화" };
 const stageDisp = s => STAGE_LABELS[s] || s;
-const STAGE_REVERSE = Object.fromEntries(Object.entries(STAGE_LABELS).map(([k,v])=>[v,k]));
+const STAGE_REVERSE = Object.fromEntries(Object.entries(STAGE_LABELS).map(([k,v])=>[v,k])); // 한글→E키
 const TIER_ORDER = ["top","high","mid","low"];
 const TIER_LABEL = { top:"최상위", high:"상위", mid:"중위", low:"하위" };
 const tierRank = t => { const i=TIER_ORDER.indexOf(String(t||"low").toLowerCase()); return i===-1?TIER_ORDER.length:i; };
@@ -161,8 +176,9 @@ let query = "";
 let groupBy = "rarity";
 let sortBy = "release";
 let sortDir = "asc";
-let extras = {}; // 체크박스 추가분(장바구니에 합산)
 
+/* 추가 체크박스 누적(친구 코드 통합) */
+let extras = {}; // { "LMD":10000, "Orirock Concentration":2, ... }
 function calcPrice() {
   extras = {};
   const cbs = document.getElementsByName('price');
@@ -171,42 +187,19 @@ function calcPrice() {
     if (cb.checked) {
       const spanId = cb.id.replace('cb','price');
       const txt = (document.getElementById(spanId)?.textContent || "").trim();
-      // "재료:수량" 또는 "수량"(수량만 쓰면 LMD로 처리)
-      let mat = "LMD", num = txt;
-      if (txt.includes(":")) [mat, num] = txt.split(":");
-      const count = parseInt(num, 10) || 0;
-      mat = mat.trim();
-      if (count > 0) extras[mat] = (extras[mat] || 0) + count;
+      const m = txt.match(/^([^:]*?)\s*:?\s*([0-9]+)$/); // "재료:수량" 또는 "수량"
+      const mat = (m && m[1].trim()) ? m[1].trim() : "LMD";
+      const count = m ? parseInt(m[2],10) : 0;
+      if (count>0) extras[mat] = (extras[mat]||0) + count;
     }
   }
-  // 있으면 미리보기로 총합 텍스트도 찍어줌(선택)
   const r = document.getElementById('result');
   if (r) r.textContent = Object.entries(extras).map(([k,v])=>`${k}:${v}`).join(", ");
-  renderBasket(); // 장바구니 재계산
+  renderBasket();
 }
-
 
 /* 스킬 체크 옵션 v2: { char: { lv7:bool, s1:{m1,m2,m3}, s2:{}, s3:{} } } */
 let skillOpt = JSON.parse(localStorage.getItem("skillOpt_v2") || "{}");
-(function migrateSkillOpt(){
-  if(localStorage.getItem("skillOpt_v2")) return;
-  const old = localStorage.getItem("skillOpt_v1");
-  if(!old) return;
-  try{
-    const v1 = JSON.parse(old); const v2 = {};
-    Object.entries(v1).forEach(([k,v])=>{
-      v2[k] = {
-        lv7: !!(v?.s1?.lv7 || v?.s2?.lv7 || v?.s3?.lv7),
-        s1: { m1:!!v?.s1?.m1, m2:!!v?.s1?.m2, m3:!!v?.s1?.m3 },
-        s2: { m1:!!v?.s2?.m1, m2:!!v?.s2?.m2, m3:!!v?.s2?.m3 },
-        s3: { m1:!!v?.s3?.m1, m2:!!v?.s3?.m2, m3:!!v?.s3?.m3 }
-      };
-    });
-    localStorage.setItem("skillOpt_v2", JSON.stringify(v2));
-    localStorage.removeItem("skillOpt_v1");
-    skillOpt = v2;
-  }catch{}
-})();
 function getSkillOpt(ch){
   const k = ch.name;
   if(!skillOpt[k]) skillOpt[k] = { lv7:false, s1:{m1:false,m2:false,m3:false}, s2:{m1:false,m2:false,m3:false}, s3:{m1:false,m2:false,m3:false} };
@@ -228,8 +221,9 @@ function imgTag(src, name){
   const ph = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"><rect width="100%25" height="100%25" fill="%2310171f"/></svg>';
   return `<img src="${s}" width="22" height="22" loading="lazy" decoding="async" onerror="this.src='${ph}'">`;
 }
-function sumInto(target, delta){ for(const [k,v] of Object.entries(delta)) target[k]=(target[k]||0)+v; }
+function sumInto(target, delta){ if(!delta) return; for(const [k,v] of Object.entries(delta)) target[k]=(target[k]||0)+v; }
 async function fetchJSON(url, fb={}){ try{ const r=await fetch(url); if(!r.ok) throw 0; return await r.json(); }catch{ console.warn('LOAD_FAIL',url); return fb; } }
+function isMiscRow(r){ return r.type==="currency" || r.type==="exp" || r.name==="LMD" || r.name==="EXP"; }
 
 /* ---------- 초기화 ---------- */
 (async function init(){
@@ -261,6 +255,11 @@ function bindEvents(){
   });
   $("#clearSel").addEventListener("click", ()=>{ selected = []; lastDetail = -1; renderGallery(); renderDetails(); renderBasket(); });
   $("#clearOwn").addEventListener("click", ()=>{ owned = {}; localStorage.setItem("owned_v1", JSON.stringify(owned)); renderBasket(); });
+
+  // extra 체크박스가 변경되면 장바구니 갱신
+  document.addEventListener('change', e=>{
+    if(e.target.matches('input[name="price"]')) calcPrice();
+  });
 }
 
 /* ---------- 태그 바 ---------- */
@@ -381,7 +380,6 @@ function renderDetails(){
   // 스킬 체크 이벤트 + 미리보기 최초 렌더
   const lv7box = d.querySelector("#lv7_all");
   if(lv7box) lv7box.onchange = ()=>{ opt.lv7 = lv7box.checked; saveSkillOpt(); renderSkillPreview(ch); renderBasket(); };
-
   ["s1","s2","s3"].forEach(k=>{
     ["m1","m2","m3"].forEach(t=>{
       const el = d.querySelector(`#${k}_${t}`);
@@ -395,7 +393,7 @@ function renderDetails(){
 function skillCostFor(ch){
   const opt = getSkillOpt(ch);
   const base = costs?.skill_levels || {};
-  const baseR = base?.[String(ch.rarity||"")] || {};              // ★ 성급별 표
+  const baseR = base?.[String(ch.rarity||"")] || {};   // 성급별 1~7 표
   const ov   = costs?.skill_levels_override?.[ch.name] || {};
   const mst  = costs?.skill_mastery?.[ch.name] || {};
   let acc = {};
@@ -412,7 +410,6 @@ function skillCostFor(ch){
   });
   return acc;
 }
-
 function renderSkillPreview(ch){
   const box = document.getElementById("skillPreview");
   if(!box) return;
@@ -421,9 +418,8 @@ function renderSkillPreview(ch){
     const meta = materials[name]||{};
     return { name, label:(meta.label?.ko)||name, icon:meta.icon||"", type:meta.type||"material", count:sum[name] };
   });
-  const isMisc = r => r.type==="currency" || r.type==="exp" || r.name==="LMD" || r.name==="EXP";
-  const main = rows.filter(r=>!isMisc(r)).sort((a,b)=>a.label.localeCompare(b.label,"ko"));
-  const misc = rows.filter(isMisc).sort((a,b)=>a.label.localeCompare(b.label,"ko"));
+  const main = rows.filter(r=>!isMiscRow(r)).sort((a,b)=>a.label.localeCompare(b.label,"ko"));
+  const misc = rows.filter(isMiscRow).sort((a,b)=>a.label.localeCompare(b.label,"ko"));
 
   const mk = (title, arr)=> arr.length? `
     <h4 style="margin:10px 0 4px;color:#aab2c0;font-size:12px">${title}</h4>
@@ -452,30 +448,19 @@ function expandMaterial(name, count){
   return acc;
 }
 
-/* ---------- 정예화 비용 주입(promotion_costs + promotion_fee) ---------- */
+/* ---------- 정예화 비용 주입(promotion_* + 오버라이드, 키 호환) ---------- */
 function injectCosts(ch, stageKey, acc){
   const add = (obj)=>{ if(!obj) return; for(const [k,v] of Object.entries(obj)) acc[k]=(acc[k]||0)+v; };
   const r = String(ch.rarity ?? "");
   const k = stageKey;
-  const kKo = STAGE_LABELS[k] || k;   // E1 -> "1차 정예화"
-  const kEn = STAGE_REVERSE[k] || k;  // "1차 정예화" -> E1
+  const kKo = STAGE_LABELS[k] || k; // E1 -> "1차 정예화"
+  const kEn = STAGE_REVERSE[k] || k; // "1차 정예화" -> E1
 
-  // 정예화 전제 비용(promotion_costs | promotion_prereq)
   add((costs?.promotion_costs?.[r]?.[k])   || (costs?.promotion_costs?.[r]?.[kKo]) || (costs?.promotion_costs?.[r]?.[kEn]));
   add((costs?.promotion_prereq?.[r]?.[k])  || (costs?.promotion_prereq?.[r]?.[kKo])|| (costs?.promotion_prereq?.[r]?.[kEn]));
-
-  // 정예화 실행 수수료
   add((costs?.promotion_fee?.[r]?.[k])     || (costs?.promotion_fee?.[r]?.[kKo])   || (costs?.promotion_fee?.[r]?.[kEn]));
-
-  // 캐릭터 개별 오버라이드
-  add((costs?.promotion_override?.[ch.name]?.[k])  || (costs?.promotion_override?.[ch.name]?.[kKo]) || (costs?.promotion_override?.[ch.name]?.[kEn]));
+  add((costs?.promotion_override?.[ch.name]?.[k]) || (costs?.promotion_override?.[ch.name]?.[kKo]) || (costs?.promotion_override?.[ch.name]?.[kEn]));
 }
-
-<div id="extraBox" style="padding:8px 12px">
-  <label><input type="checkbox" id="cb1" name="price" onclick="calcPrice()">
-    <span id="price1">LMD:10000</span></label><br>
-  <label><input type="checkbox" id="cb2" name="price" onclick="calcPrice()">
-    <span id="price2">EXP:5000</span></label><br>
 
 /* ---------- 장바구니 ---------- */
 function renderBasket(){
@@ -499,11 +484,12 @@ function renderBasket(){
       (mats||[]).forEach(m=>{ sumInto(sum, expandMaterial(m.name, m.count)); });
       injectCosts(ch, stageKey, sum);
     }
-    // 스킬 옵션 합산
     sumInto(sum, skillCostFor(ch));
   });
-  sumInto(sum, extras); // ← 친구 체크박스 총합 반영
-  
+
+  // 친구 체크박스 추가분 합산
+  sumInto(sum, extras);
+
   const rows = Object.keys(sum).map(name=>{
     const meta = materials[name] || {};
     return {
@@ -517,9 +503,8 @@ function renderBasket(){
     };
   });
 
-  const isMisc = r => r.type==="currency" || r.type==="exp" || r.name==="LMD" || r.name==="EXP";
   const cmp = (a,b)=>{
-    if(groupBy==="tier"){
+    if(groupBy==="tier" && !isMiscRow(a) && !isMiscRow(b)){
       const t = tierRank(a.tier) - tierRank(b.tier); if(t!==0) return t;
       const r = b.rarity - a.rarity; if(r!==0) return r;
       return a.label.localeCompare(b.label,"ko");
@@ -529,8 +514,8 @@ function renderBasket(){
     }
   };
 
-  const main = rows.filter(x=>!isMisc(x)).sort(cmp);
-  const misc = rows.filter(isMisc).sort((a,b)=>a.label.localeCompare(b.label,"ko"));
+  const main = rows.filter(x=>!isMiscRow(x)).sort(cmp);
+  const misc = rows.filter(isMiscRow).sort((a,b)=>a.label.localeCompare(b.label,"ko"));
 
   const bodyMain = document.querySelector("#basketTable tbody");
   const bodyMisc = document.querySelector("#basketMisc tbody");
@@ -539,7 +524,7 @@ function renderBasket(){
   const renderRows = (arr, tbody)=>{
     let prevTier = null;
     arr.forEach(m=>{
-      if(groupBy==="tier" && !isMisc(m)){
+      if(groupBy==="tier" && !isMiscRow(m)){
         const t = String(m.tier||"low").toLowerCase();
         if(t!==prevTier){
           const gh = document.createElement("tr");
@@ -572,6 +557,3 @@ function updateOwned(name, val){
 </script>
 </body>
 </html>
-
-
-
