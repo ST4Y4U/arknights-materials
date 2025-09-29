@@ -65,12 +65,38 @@
       "7": { "Integrated Device": 5, "Transmuted Salt": 1 }
     }
   },
+  "skill_mastery": {
+    "Exusiai the New Covenant": {
+      "s1": {
+        "M1": { "Skill Summary - 3": 8, "Polymerized Gel": 4, "Polyester Pack": 10 },
+        "M2": { "Skill Summary - 3": 12, "Grindstone Pentahydrate": 8, "Crystalline Circuit": 7 },
+        "M3": { "Skill Summary - 3": 15, "Rephasic Enantiomer": 6, "Keton Colloid": 1 }
+      },
+      "s2": {
+        "M1": { "Skill Summary - 3": 8, "Chiral Refractor": 4, "Transmuted Salt": 6 },
+        "M2": { "Skill Summary - 3": 12, "Orirock Concentration": 4, "Transmuted Salt Agglomerate": 10 },
+        "M3": { "Skill Summary - 3": 15, "Polymerization Preparation": 6, "Cyclicene Prefab": 5 }
+      },
+      "s3": {
+        "M1": { "Skill Summary - 3": 8, "RMA70-24": 4, "RMA70-12": 4 },
+        "M2": { "Skill Summary - 3": 12, "Incandescent Alloy Block": 4, "Oriron Block": 7 },
+        "M3": { "Skill Summary - 3": 15, "D32 Steel": 6, "Refined Solvent": 6 }
+      }
+    }
+  },
   "module_override": {
     "Lemuen": {
       "DEA-Y": {
         "S1": { "LMD": 80000, "Module Data Block": 4, "Crystalline Electronic Unit": 2 },
-        "S2": { "LMD": 100000, "Module Data Block": 4, "Data Supplement Stick": 60, "Rephasic Enantiomer": 3 },
+        "S2": { "LMD": 100000, "Module Data Block": 4, "Data Supplement Stick": 60, "D32 Steel": 3 },
         "S3": { "LMD": 120000, "Module Data Block": 4, "Data Supplement Instrument": 20, "Polymerization Preparation": 4 }
+      }
+    },
+    "Exusiai the New Covenant": {
+      "GEE-X": {
+        "S1": { "LMD": 80000, "Module Data Block": 4, "Polymerization Preparation": 2 },
+        "S2": { "LMD": 100000, "Module Data Block": 4, "Data Supplement Stick": 60, "Rephasic Enantiomer": 3 },
+        "S3": { "LMD": 120000, "Module Data Block": 4, "Data Supplement Instrument": 20, "Nucleic Crystal Sinter": 4 }
       }
     }
   }
