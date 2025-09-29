@@ -55,6 +55,14 @@
       "5": { "Oriron": 4 , "Sugar": 3 },
       "6": { "Integrated Device": 4 },
       "7": { "Loxic Kohl": 5, "RMA70-12": 3 }
+    },
+    "Exusiai the New Covenant": {
+      "2": {},
+      "3": { "Orirock": 6, "Damaged Device": 4 },
+      "4": { "Sugar": 5 },
+      "5": { "Polyester": 4, "Oriron": 4 },
+      "6": { "Compound Cutting Fluid": 5 },
+      "7": { "Integrated Device": 5, "Transmuted Salt": 1 }
     }
   },
   "module_override": {
