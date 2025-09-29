@@ -263,9 +263,12 @@ function dispChar(ch){ return (ch.label?.ko) || ch.name; }
 function slug(s){ return String(s||"").toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,""); }
 function imgTag(src, name){
   const guess = name ? `icons/${slug(name)}.png` : (src||"");
-  const s = (src && String(src).trim()) ? src : guess;
+  let s = (src && String(src).trim()) ? src : guess;
+  s = s.replace(/["'>\s]+$/g, "");
+  const sAttr = s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
   const ph = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"><rect width="100%25" height="100%25" fill="%2310171f"/></svg>';
-  return `<img src="${s}" width="22" height="22" loading="lazy" decoding="async" onerror="this.src='${ph}'">`;
+  return `<img src="${sAttr}" alt="" width="22" height="22" loading="lazy" decoding="async"
+           onerror="this.src='${ph}'">`;
 }
 function sumInto(target, delta){ if(!delta) return; for(const [k,v] of Object.entries(delta)) target[k]=(target[k]||0)+v; }
 async function fetchJSON(url, fb={}){ try{ const r=await fetch(url); if(!r.ok) throw 0; return await r.json(); }catch{ console.warn('LOAD_FAIL',url); return fb; } }
