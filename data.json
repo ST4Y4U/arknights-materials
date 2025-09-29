@@ -228,7 +228,7 @@
     "label": { "ko": "엑시아 더 뉴 커버넌트", "en": "Exusiai the New Covenant" },
     "rarity": 6,
     "image": "images/Exusiai_the_New_Covenant.webp",
-    "image": "images/Exusiai_the_New_Covenant_E2.webp",
+    "imageE2": "images/Exusiai_the_New_Covenant_E2.webp",
     "tags": ["스페셜리스트","6성"],
     "modules": ["GEE-X"],
     "release": 373,
