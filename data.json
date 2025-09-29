@@ -6,6 +6,9 @@
     "image": "images/fang.png",
     "tags": ["뱅가드","3성"],
     "release": 1,
+    "skills": {
+      "s1": { "icon": "images/sa_s1.png" }
+    },
     "stages": {
       "E1": []
     }
@@ -17,6 +20,9 @@
     "image": "images/vanilla.png",
     "tags": ["뱅가드","3성"],
     "release": 2,
+    "skills": {
+      "s1": { "icon": "images/sa_s1.png" }
+    },
     "stages": {
       "E1": []
     }
@@ -28,6 +34,9 @@
     "image": "images/plume.png",
     "tags": ["뱅가드","3성"],
     "release": 3,
+    "skills": {
+      "s1": { "icon": "images/sa_s1.png" }
+    },
     "stages": {
       "E1": []
     }
@@ -39,6 +48,9 @@
     "image": "images/melantha.png",
     "tags": ["가드","3성"],
     "release": 4,
+    "skills": {
+      "s1": { "icon": "images/sa_s1.png" }
+    },
     "stages": {
       "E1": []
     }
@@ -50,6 +62,9 @@
     "image": "images/cardigan.png",
     "tags": ["디펜더","3성"],
     "release": 5,
+    "skills": {
+      "s1": { "icon": "images/sa_s1.png" }
+    },
     "stages": {
       "E1": []
     }
@@ -61,6 +76,9 @@
     "image": "images/beagle.png",
     "tags": ["디펜더","3성"],
     "release": 6,
+    "skills": {
+      "s1": { "icon": "images/sa_s1.png" }
+    },
     "stages": {
       "E1": []
     }
@@ -72,6 +90,9 @@
     "image": "images/kroos.png",
     "tags": ["스나이퍼","3성"],
     "release": 7,
+    "skills": {
+      "s1": { "icon": "images/sa_s1.png" }
+    },
     "stages": {
       "E1": []
     }
@@ -83,6 +104,9 @@
     "image": "images/adnachiel.png",
     "tags": ["스나이퍼","3성"],
     "release": 8,
+    "skills": {
+      "s1": { "icon": "images/sa_s1.png" }
+    },
     "stages": {
       "E1": []
     }
@@ -94,6 +118,9 @@
     "image": "images/lava.png",
     "tags": ["캐스터","3성"],
     "release": 9,
+    "skills": {
+      "s1": { "icon": "images/sa_s1.png" }
+    },
     "stages": {
       "E1": []
     }
@@ -105,6 +132,9 @@
     "image": "images/hibiscus.png",
     "tags": ["메딕","3성"],
     "release": 10,
+    "skills": {
+      "s1": { "icon": "images/sa_s1.png" }
+    },
     "stages": {
       "E1": []
     }
@@ -116,6 +146,9 @@
     "image": "images/ansel.png",
     "tags": ["메딕","3성"],
     "release": 11,
+    "skills": {
+      "s1": { "icon": "images/sa_s1.png" }
+    },
     "stages": {
       "E1": []
     }
@@ -127,6 +160,9 @@
     "image": "images/steward.png",
     "tags": ["캐스터","3성"],
     "release": 12,
+    "skills": {
+      "s1": { "icon": "images/sa_s1.png" }
+    },
     "stages": {
       "E1": []
     }
@@ -138,6 +174,9 @@
     "image": "images/orchid.png",
     "tags": ["서포터","3성"],
     "release": 13,
+    "skills": {
+      "s1": { "icon": "images/sa_s1.png" }
+    },
     "stages": {
       "E1": []
     }
@@ -149,6 +188,11 @@
     "image": "images/mon3tr.png",
     "tags": ["메딕","6성"],
     "release": 368,
+    "skills": {
+      "s1": { "icon": "images/sa_s1.png" },
+      "s2": { "icon": "images/sa_s2.png" },
+      "s3": { "icon": "images/sa_s3.png" }
+    },
     "stages": {
       "E1": [ {"name":"Medic Chip Pack","count": 5 }, {"name":"Oriron","count":8 }, {"name":"Polyketon","count":3 } ],
       "E2": [ {"name":"Medic Dualchip","count": 4 }, {"name":"Crystalline Electronic Unit","count": 4 }, {"name":"Orirock Concentration","count": 2 } ]
@@ -170,6 +214,10 @@
     "image": "images/gracebearer.png",
     "tags": ["가드","5성"],
     "release": 370,
+    "skills": {
+      "s1": { "icon": "images/sa_s1.png" },
+      "s2": { "icon": "images/sa_s2.png" }
+    },
     "stages": {
       "E1": [ {"name":"Specialist Chip Pack","count":4 }, {"name":"Polyketon","count":2 }, {"name":"Sugar","count":2 } ],
       "E2": [ {"name":"Specialist Dualchip","count": 3 }, {"name":"Solidified Fiber Board","count": 7 }, {"name":"Manganese Ore","count": 14 } ]
@@ -181,7 +229,13 @@
     "rarity": 6,
     "image": "images/exusiai_the_new_covenant.png",
     "tags": ["스페셜리스트","6성"],
+    "modules": ["GEE-X"],
     "release": 373,
+    "skills": {
+      "s1": { "icon": "images/sa_s1.png" },
+      "s2": { "icon": "images/sa_s2.png" },
+      "s3": { "icon": "images/sa_s3.png" }
+    },
     "stages": {
       "E1": [ {"name":"Specialist Chip Pack","count":5 }, {"name":"Polyketon","count":7 }, {"name":"Device","count":3 } ],
       "E2": [ {"name":"Specialist Dualchip","count": 4 }, {"name":"Rephasic Enantiomer","count": 4 }, {"name":"RMA70-24","count": 2 } ]
@@ -195,6 +249,11 @@
     "tags": ["스나이퍼","6성"],
     "modules": ["DEA-Y"],
     "release": 372,
+    "skills": {
+      "s1": { "icon": "images/sa_s1.png" },
+      "s2": { "icon": "images/sa_s2.png" },
+      "s3": { "icon": "images/sa_s3.png" }
+    },
     "stages": {
       "E1": [ {"name":"Sniper Chip Pack","count":5 }, {"name":"Device","count":5 }, {"name":"Orirock Cube","count":7 } ],
       "E2": [ {"name":"Sniper Dualchip","count": 4 }, {"name":"Polymerization Preparation","count": 4 }, {"name":"Incandescent Alloy Block","count": 7 } ]
@@ -208,6 +267,11 @@
     "tags": ["디펜더","6성"],
     "modules": ["SPT-X"],
     "release": 371,
+    "skills": {
+      "s1": { "icon": "images/sa_s1.png" },
+      "s2": { "icon": "images/sa_s2.png" },
+      "s3": { "icon": "images/sa_s3.png" }
+    },
     "stages": {
       "E1": [ {"name":"Defender Chip Pack","count":5 }, {"name":"Orirock Cube","count":12 }, {"name":"Polyketon","count":4 } ],
       "E2": [ {"name":"Defender Dualchip","count": 4 }, {"name":"D32 Steel","count": 4 }, {"name":"Crystalline Circuit","count": 5 } ]
@@ -221,6 +285,10 @@
     "tags": ["캐스터","5성"],
     "modules": ["PRI-X"],
     "release": 374,
+    "skills": {
+      "s1": { "icon": "images/sa_s1.png" },
+      "s2": { "icon": "images/sa_s2.png" }
+    },
     "stages": {
       "E1": [ {"name":"Caster Chip Pack","count":4 }, {"name":"Orirock Cube","count":7 }, {"name":"Device","count":2 } ],
       "E2": [ {"name":"Caster Dualchip","count": 3 }, {"name":"Grindstone Pentahydrate","count": 7 }, {"name":"Oriron Cluster","count": 12 } ]
