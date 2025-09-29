@@ -261,15 +261,26 @@ const $ = s => document.querySelector(s);
 function disp(name){ return (materials[name]?.label?.ko) || name; }
 function dispChar(ch){ return (ch.label?.ko) || ch.name; }
 function slug(s){ return String(s||"").toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,""); }
+
+/* 유령 텍스트노드 제거기 */
+function scrubGhostArrows(root=document.body){
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  let n; const re = /^\s*(?:&quot;|&#34;|")?\s*>\s*$/;
+  while ((n = walker.nextNode())) if (re.test(n.nodeValue)) n.nodeValue = "";
+}
+
+/* 아이콘 태그 생성기: 꼬리 '">', '&quot;>' 절단 강화판 */
 function imgTag(src, name){
   const guess = name ? `icons/${slug(name)}.png` : (src||"");
   let s = (src && String(src).trim()) ? src : guess;
-  s = s.replace(/["'>\s]+$/g, "");
+  // 끝에 붙은 따옴표/엔티티/공백/꺾쇠 제거
+  s = s.replace(/\s*(?:&quot;|&#34;|"|')?\s*>?\s*$/g, "");
   const sAttr = s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
   const ph = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"><rect width="100%25" height="100%25" fill="%2310171f"/></svg>';
   return `<img src="${sAttr}" alt="" width="22" height="22" loading="lazy" decoding="async"
            onerror="this.src='${ph}'">`;
 }
+
 function sumInto(target, delta){ if(!delta) return; for(const [k,v] of Object.entries(delta)) target[k]=(target[k]||0)+v; }
 async function fetchJSON(url, fb={}){ try{ const r=await fetch(url); if(!r.ok) throw 0; return await r.json(); }catch{ console.warn('LOAD_FAIL',url); return fb; } }
 
@@ -284,6 +295,7 @@ async function fetchJSON(url, fb={}){ try{ const r=await fetch(url); if(!r.ok) t
   renderGallery();
   renderBasket();
   bindEvents();
+  scrubGhostArrows(); // 초기 1회 청소
 })();
 
 /* ---------- 이벤트 ---------- */
@@ -318,7 +330,7 @@ function renderTagBar(){
   if(tags.length===0){ bar.innerHTML = `<span class="small">태그 없음</span>`; return; }
   tags.forEach(t=>{
     const btn = document.createElement("button");
-    btn.className = "chip"; btn.textContent = esc(t);
+    btn.className = "chip"; btn.textContent = t; // textContent는 자체 안전
     btn.onclick = ()=>{ if(activeTags.has(t)) activeTags.delete(t); else activeTags.add(t); btn.classList.toggle("active"); page=1; renderGallery(); };
     bar.appendChild(btn);
   });
@@ -374,6 +386,7 @@ function renderGallery(){
   g.appendChild(frag);
 
   $("#selMeta").textContent = `${selected.length}명 선택됨`;
+  scrubGhostArrows(); // 렌더 후 청소
 }
 function toggleSelect(i){
   const pos = selected.indexOf(i);
@@ -543,6 +556,8 @@ function renderDetails(){
   d.querySelectorAll('.modSelect').forEach(el=>{
     el.onchange = ()=>{ mo.types[el.dataset.mod] = parseInt(el.value,10)||0; saveModOpt(); renderBasket(); };
   });
+
+  scrubGhostArrows(); // 렌더 후 청소
 }
 
 /* ---------- 스킬 비용 ---------- */
@@ -700,6 +715,7 @@ function renderBasket(){
   renderRows(miscOther, bodyMO);
 
   $("#selMeta").textContent = `${selected.length}명 선택됨`;
+  scrubGhostArrows(); // 렌더 후 청소
 }
 
 function updateOwned(name, val){
